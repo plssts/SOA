@@ -18,10 +18,10 @@ class ReusableForm(Form):
 def home():
     form = ReusableForm(request.form)
  
-    print form.errors
+    print (form.errors)
     if request.method == 'POST':
         name = request.form['name']
-    print name
+    print (name)
     
     return render_template('home.html')
 
