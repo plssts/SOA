@@ -9,14 +9,12 @@ redis = Redis(host='redis',port=5000)
 # index.html vaizdas
 @app.route('/', methods=["GET"])
 def home():
-        if request.method == 'GET':
-              buttonClick = request.form['tasks']
-              if buttonClick == 'enter_tasks':
-                        return 'Tasks listed here'
-        elif return render_template('home.html')
+        return render_template('home.html')
 
+@app.route("/tasks", methods=["GET", "POST"])
 def tasks():
-        return 'All tasks here'
+        if request.method == 'POST':
+                return 'All tasks here'
 
 #def index():
 #        indFile = open('README.md', 'r')
