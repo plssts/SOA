@@ -19,9 +19,13 @@ def home():
  
     print (form.errors)
     if request.method == 'POST':
-        name = request.form['name']
-        print (name)
-        return 'post request'
+        if 'new_task' in request.form:
+            name = request.form['name']
+            print (name)
+            return 'post request - creating new entry'
+        
+        if 'all_tasks' in request.form:
+            return 'all jsons here'
     
     return render_template('home.html', form=form)
 
