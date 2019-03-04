@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from redis import Redis
 import os
 import markdown
@@ -8,10 +8,12 @@ redis = Redis(host='redis',port=5000)
 
 # index.html vaizdas
 @app.route('/')
-def index():
-        indFile = open('README.md', 'r')
-        content = indFile.read()
-        return markdown.markdown(content)
+def home():
+        return render_template('home.html')
+#def index():
+#        indFile = open('README.md', 'r')
+#        content = indFile.read()
+#        return markdown.markdown(content)
 
 if __name__ == "__main__":
         app.run(host="0.0.0.0",debug=True)
