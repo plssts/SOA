@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from redis import Redis
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField
+from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 import os
 import markdown
 
