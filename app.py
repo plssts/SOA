@@ -10,6 +10,10 @@ redis = Redis(host='redis',port=5000)
 @app.route('/')
 def home():
         return render_template('home.html')
+
+def tasks():
+        return 'All tasks here'
+
 #def index():
 #        indFile = open('README.md', 'r')
 #        content = indFile.read()
