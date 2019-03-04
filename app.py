@@ -22,7 +22,7 @@ def home():
         name = request.form['name']
         print (name)
     
-    return render_template('home.html')
+    return render_template('home.html', form=form)
 
 @app.route("/tasks", methods=["GET", "POST"])
 def tasks():
