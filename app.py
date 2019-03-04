@@ -10,20 +10,19 @@ redis = Redis(host='redis',port=5000)
 
 #from wtforms.validators import DataRequired
 
-class MyForm(FlaskForm):
-    name = StringField('name', validators=[DataRequired()])
-    age = InterField('age', validators=[DataRequired()])
+class ReusableForm(Form):
+    name = TextField('Name:', validators=[])
 
 # index.html vaizdas
 @app.route('/', methods=["GET", "POST"])
 def home():
-    form = MyForm(request.form)
+    form = ReusableForm(request.form)
  
-    print (form.errors)
+    print form.errors
     if request.method == 'POST':
         name = request.form['name']
-        age = request.form['age']
-        print (name, age)
+    print name
+    
     return render_template('home.html')
 
 @app.route("/tasks", methods=["GET", "POST"])
