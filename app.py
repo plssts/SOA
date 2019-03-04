@@ -32,8 +32,9 @@ def home():
 
 @app.route("/tasks", methods=["GET", "POST"])
 def tasks():
-    if request.method == 'POST':
+    if request.method == 'GET':
         return 'All tasks here'
+    return 'all tasks here'
 
 #def index():
 #        indFile = open('README.md', 'r')
