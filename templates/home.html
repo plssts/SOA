@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 
-<form action="/tasks" method="get">
-<div>
-    <button type="submit"> Tasks</button>
-</div>
+<form method="POST" action="/">
+    {{ form.hidden_tag() }}
+    {{ form.name.label }} {{ form.name(size=20) }}
+    <br/>
+    {{ form.age.label }} {{ form.age(size=3) }}
+    <input type="submit" value="New">
+</form>
