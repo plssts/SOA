@@ -7,9 +7,10 @@ app = Flask(__name__)
 redis = Redis(host='redis',port=5000)
 
 # index.html vaizdas
-@app.route('/')
+@app.route('/', methods=["GET"])
 def home():
-        return render_template('home.html')
+        
+        elif return render_template('home.html')
 
 def tasks():
         return 'All tasks here'
