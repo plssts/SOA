@@ -21,6 +21,7 @@ def home():
     if request.method == 'POST':
         name = request.form['name']
         print (name)
+        return 'post request'
     
     return render_template('home.html', form=form)
 
