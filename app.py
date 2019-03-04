@@ -6,6 +6,7 @@ import markdown
 app = Flask(__name__)
 redis = Redis(host='redis',port=5000)
 
+# index.html vaizdas
 @app.route('/')
 def index():
         indFile = open('README.md', 'r')
