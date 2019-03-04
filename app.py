@@ -24,9 +24,9 @@ def home():
             print (name)
             return 'post request - creating new entry'
         
-    if request.method == 'GET':
-        if 'all_tasks' in request.form:
-            return 'all jsons here'
+    #if request.method == 'GET':
+    #    if 'all_tasks' in request.form:
+    #        return 'all jsons here'
     
     return render_template('home.html', form=form)
 
