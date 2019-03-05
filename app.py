@@ -12,7 +12,7 @@ progInterface = Api(app)
 def home():
     return markdown.markdown(open('README.md', 'r').read())
 
-api.add_resource(NotesList, '/notes')
+progInterface.add_resource(NotesList, '/notes')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
