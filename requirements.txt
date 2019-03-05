@@ -1,4 +1,3 @@
 flask
-wtforms
-redis
+flask_restful
 markdown
