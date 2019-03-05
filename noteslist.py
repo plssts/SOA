@@ -1,4 +1,4 @@
-from flask import Flask, g
+from flask import Flask
 from flask_restful import Resource, reqparse
 import shelve
 
@@ -12,3 +12,4 @@ class NotesList(Resource):
         notes = [entries[e] for e in elements]
 
         return {'message': 'Success', 'data': notes}, 200
+    
