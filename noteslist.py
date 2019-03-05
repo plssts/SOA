@@ -16,7 +16,7 @@ class NotesList(Resource):
 # duombazes uzkrovimas
 def initDatabase():
     if 'db' not in g:
-        g.db = connect_to_database()
+        g.db = shelve.open('notes.db')
 
     return g.db
 
