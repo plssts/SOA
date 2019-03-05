@@ -4,17 +4,36 @@ import shelve
 
 app = Flask(__name__)
 
+# Valdo uzrasu saraso gyvavima
 class NotesList(Resource):
+    # GET - grazinimas
     def get(self):
-        entries = initDatabase()
+        entries = database()
         elements = list(entries.keys())
 
         notes = [entries[e] for e in elements]
 
         return {'message': 'Success', 'data': notes}, 200
     
+    # POST - kurimas
+    def post(self):
+        parser = reqparse.RequestParser()
+
+        parser.add_argument('title', required=True)
+        parser.add_argument('author', required=True)
+        parser.add_argument('comment', required=True)
+        parser.add_argument('expiration', required=False)
+
+        args = parser.parse_args()
+
+        entries = database()
+        entries[args['title']] = args
+
+        return {'message': 'New note added', 'data': args}, 201
+
+    
 # duombazes uzkrovimas
-def initDatabase():
+def database():
     if 'db' not in g:
         g.db = shelve.open('notes.db')
 
