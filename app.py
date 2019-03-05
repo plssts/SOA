@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from flask_restful import Api
 import os
 import markdown
-import NotesList
+import noteslist
 
 app = Flask(__name__)
 progInterface = Api(app)
