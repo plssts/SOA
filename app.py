@@ -15,20 +15,7 @@ class ReusableForm(Form):
 # index.html vaizdas
 @app.route('/', methods=["GET", "POST"])
 def home():
-    form = ReusableForm(request.form)
- 
-    print (form.errors)
-    if request.method == 'POST':
-        if 'new_task' in request.form:
-            name = request.form['name']
-            print (name)
-            return 'post request - creating new entry'
-        
-    #if request.method == 'GET':
-    #    if 'all_tasks' in request.form:
-    #        return 'all jsons here'
-    
-    return render_template('home.html', form=form)
+    return open('README.md', 'r').read()
 
 @app.route("/tasks", methods=["GET", "POST"])
 def tasks():
