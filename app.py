@@ -15,7 +15,7 @@ class ReusableForm(Form):
 # index.html vaizdas
 @app.route('/', methods=["GET", "POST"])
 def home():
-    return open('README.md', 'r').read()
+    return markdown.markdown(open('README.md', 'r').read())
 
 @app.route("/tasks", methods=["GET", "POST"])
 def tasks():
