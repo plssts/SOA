@@ -10,4 +10,4 @@ Is SOA/ aplanko subuildinti ir paleisti:
 
 Po panaudojimo galima apvalyti \<none\>:\<none\> docker atvaizdus:
   
-- ```docker rmi $(docker images --filter “dangling=true” -q --no-trunc)```
+- ```docker rmi $(docker images --filter dangling=true -q --no-trunc)```
