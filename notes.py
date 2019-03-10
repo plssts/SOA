@@ -40,7 +40,7 @@ class Notes(Resource):
 
         del entries[title]
 
-        return '', 204
+        return {'message': 'Note removed', 'data': {}}, 204
         
         
 # duombazes uzkrovimas
