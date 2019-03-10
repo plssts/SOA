@@ -14,6 +14,7 @@ def home():
     return markdown.markdown(open('README.md', 'r').read())
 
 progInterface.add_resource(NotesList, '/notes')
+progInterface.add_resource(Notes, '/notes/<string:title>')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
