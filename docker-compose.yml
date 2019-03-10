@@ -1,7 +1,7 @@
 version: '2.0'
 
 services:
-  device-registry:
+  members-registry:
     build: .
     volumes:
       - .:/usr/src/app
