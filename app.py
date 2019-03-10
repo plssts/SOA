@@ -3,6 +3,7 @@ from flask_restful import Api
 import os
 import markdown
 from noteslist import NotesList
+from notes import Notes
 
 app = Flask(__name__)
 progInterface = Api(app)
