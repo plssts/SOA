@@ -42,6 +42,7 @@ POST /notes
   * 'expiration'  (galiojimo data)
   
 POST uzklausos pavyzdys per Postman:
+
 ![Screenshot](docs/post_demo.png)
 
 PUT /notes/[konktretaus iraso pavadinimas (title)]
