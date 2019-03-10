@@ -5,6 +5,7 @@ import shelve
 app = Flask(__name__)
 
 class Notes(Resource):
+    # GET - grazinimas pagal pavadinima
     def get(self, title):
         entries = database()
 
@@ -13,6 +14,7 @@ class Notes(Resource):
 
         return {'message': 'Note', 'data': entries[title]}, 200
 
+    # PUT - keitimas pagal pavadinima
     def put(self, title):
         entries = database()
 
@@ -32,6 +34,7 @@ class Notes(Resource):
 
         return {'message': 'Note updated successfully', 'data': args}, 202
 
+    # DELETE - pasalinimas pagal pavadinima
     def delete(self, title):
         entries = database()
 
