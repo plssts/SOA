@@ -13,7 +13,7 @@ class NotesList(Resource):
 
         notes = [entries[e] for e in elements]
 
-        return {'message': 'Success', 'data': notes}, 200
+        return {'message': 'All notes returned', 'data': notes}, 200
     
     # POST - kurimas
     def post(self):
@@ -22,7 +22,7 @@ class NotesList(Resource):
         parser.add_argument('title', required=True)
         parser.add_argument('author', required=True)
         parser.add_argument('comment', required=True)
-        parser.add_argument('expiration', required=False)
+        parser.add_argument('expiration', required=True)
 
         args = parser.parse_args()
 
