@@ -12,6 +12,7 @@ app = Flask(__name__)
 # Create the API
 api = Api(app)
 
+#duomenu bazes uzkrovimas
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
@@ -23,7 +24,8 @@ def teardown_db(exception):
     db = getattr(g, '_database', None)
     if db is not None:
         db.close()
-
+        
+#README pagrindinis puslapis
 @app.route("/")
 def index():
     """Present some documentation"""
@@ -64,7 +66,7 @@ class MembersList(Resource):
         shelf = get_db()
         shelf[args['phone']] = args
 
-        return {'message': 'Device registered', 'data': args}, 201
+        return {'message': 'Member registered', 'data': args}, 201
 
 
 class Member(Resource):
@@ -72,7 +74,7 @@ class Member(Resource):
         shelf = get_db()
         
         if not (phone in shelf):
-            return {'message': 'Device not found', 'data': {}}, 404
+            return {'message': 'Member not found', 'data': {}}, 404
             
         parser = reqparse.RequestParser()
     
@@ -87,23 +89,23 @@ class Member(Resource):
         shelf = get_db()
         shelf[phone] = args
     
-        return {'message': 'Device registered', 'data': args}, 201
+        return {'message': 'Member registered', 'data': args}, 201
             
     def get(self, phone):
         shelf = get_db()
 
         # If the key does not exist in the data store, return a 404 error.
         if not (phone in shelf):
-            return {'message': 'Device not found', 'data': {}}, 404
+            return {'message': 'Member not found', 'data': {}}, 404
 
-        return {'message': 'Device found', 'data': shelf[phone]}, 200
+        return {'message': 'Member found', 'data': shelf[phone]}, 200
 
     def delete(self, phone):
         shelf = get_db()
 
         # If the key does not exist in the data store, return a 404 error.
         if not (phone in shelf):
-            return {'message': 'Device not found', 'data': {}}, 404
+            return {'message': 'Member not found', 'data': {}}, 404
 
         del shelf[phone]
         return '', 204
