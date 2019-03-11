@@ -1,4 +1,17 @@
-# Device Registry Service
+# Sporto klubo narių registras
+
+## WS Įrašymas, paleidimas ir ištrynimas
+
+WS failų atsisiuntimas - <br />
+```git clone https://git.mif.vu.lt/krsi3832/ws_1```
+
+WS subuildinimas -<br />
+```cd ws_1```<br />
+```docker-compose up --build```  
+
+WS ištrynimas -<br />
+```cd ..```<br />
+```rm -r ws_1```
 
 ## Usage
 
