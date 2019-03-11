@@ -69,7 +69,7 @@ Subsequent response definitions will only detail the expected value of the `data
 
 ```{"name":"Kristupas","fname":"Simoncikas","phone":"37062192000","membership_exp":"22/12/19"}```
 
-Jei toks narys jau egzistuoja, tai senas įrašas bus ištrintas vietoj naujo
+Jei toks narys jau egzistuoja(pagal telefono numerį), tai senas įrašas bus pakeistas nauju
 
 **Response**
 
