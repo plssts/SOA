@@ -28,7 +28,7 @@ WS ištrynimas -<br />
 **Argumentai**
 
 - `"name":string` vardas
-- `"fname":string`pavardė
+- `"fname":string` pavardė
 - `"phone":string` telefono numeris(unikalus įrašas)
 - `"membership_exp":string` iki kada galioja narystė
 
