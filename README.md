@@ -66,9 +66,10 @@ Subsequent response definitions will only detail the expected value of the `data
 - `"membership_exp":string` iki kada galioja narystė
 
 **Užklausos pavyzdys per Postman (naudoti JSON(application/json)**
+
 ```{"name":"Kristupas","fname":"Simoncikas","phone":"37062192000","membership_exp":"22/12/19"}```
 
-If a device with the given identifier already exists, the existing device will be overwritten.
+Jei toks narys jau egzistuoja, tai senas įrašas bus ištrintas vietoj naujo
 
 **Response**
 
