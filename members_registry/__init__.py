@@ -64,11 +64,12 @@ class MembersList(Resource):
 
         # Parse the arguments into an object
         args = parser.parse_args()
-
+        
+        shelf = get_db()
         if (args['phone'] in shelf):
             return {'message': 'Member already exists', 'data': {}}, 404
             
-        shelf = get_db()
+        
         shelf[args['phone']] = args
 
         return {'message': 'Member registered', 'data': args}, 201
