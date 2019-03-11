@@ -68,6 +68,27 @@ class MembersList(Resource):
 
 
 class Member(Resource):
+    def put(self, phone):
+        shelf = get_db()
+        
+        if not (phone in shelf):
+            return {'message': 'Device not found', 'data': {}}, 404
+            
+    parser = reqparse.RequestParser()
+
+    parser.add_argument('name', required=True)
+    parser.add_argument('fname', required=True)
+    parser.add_argument('phone', required=True)
+    parser.add_argument('membership_exp', required=True)
+
+    # Parse the arguments into an object
+    args = parser.parse_args()
+
+    shelf = get_db()
+    shelf[args['phone']] = args
+
+    return {'message': 'Device registered', 'data': args}, 201
+            
     def get(self, phone):
         shelf = get_db()
 
