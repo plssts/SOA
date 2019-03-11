@@ -13,7 +13,7 @@ WS ištrynimas -<br />
 ```cd ..```<br />
 ```rm -r ws_1```
 
-## Usage
+## Naudojimas
 
 All responses will have the form
 
