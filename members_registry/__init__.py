@@ -53,10 +53,10 @@ class MembersList(Resource):
     def post(self):
         parser = reqparse.RequestParser()
 
-        parser.add_argument('identifier', required=True)
         parser.add_argument('name', required=True)
-        parser.add_argument('device_type', required=True)
-        parser.add_argument('controller_gateway', required=True)
+        parser.add_argument('fname', required=True)
+        parser.add_argument('phone', required=True)
+        parser.add_argument('membership_date', required=True)
 
         # Parse the arguments into an object
         args = parser.parse_args()
