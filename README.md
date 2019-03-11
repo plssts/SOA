@@ -26,11 +26,10 @@ All responses will have the form
 
 Subsequent response definitions will only detail the expected value of the `data field`
 
-### List all devices
+### Visų narių sąrašas
 
-**Definition**
 
-`GET /devices`
+`GET /members`
 
 **Response**
 
@@ -56,7 +55,7 @@ Subsequent response definitions will only detail the expected value of the `data
 ### Nario registracija
 
 
-`POST /devices`
+`POST /members`
 
 **Argumentai**
 
@@ -104,7 +103,7 @@ Jei toks narys jau egzistuoja(pagal telefono numerį), tai senas įrašas bus pa
 
 ## Ištrinti narį
 
-`DELETE /devices/<phone>`
+`DELETE /members/<phone>`
 
 **Response**
 
