@@ -53,18 +53,20 @@ Subsequent response definitions will only detail the expected value of the `data
 ]
 ```
 
-### Registering a new device
+### Nario registracija
 
-**Definition**
 
 `POST /devices`
 
-**Arguments**
+**Argumentai**
 
-- `"identifier":string` a globally unique identifier for this device
-- `"name":string` a friendly name for this device
-- `"device_type":string` the type of the device as understood by the client
-- `"controller_gateway":string` the IP address of the device's controller
+- `"name":string` vardas
+- `"fname":string`pavardė
+- `"phone":string` telefono numeris(unikalus įrašas)
+- `"membership_exp":string` iki kada galioja narystė
+
+**Užklausos pavyzdys per Postman (naudoti JSON(application/json)**
+```{"name":"Kristupas","fname":"Simoncikas","phone":"37062192000","membership_exp":"22/12/19"}```
 
 If a device with the given identifier already exists, the existing device will be overwritten.
 
