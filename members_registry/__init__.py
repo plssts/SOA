@@ -56,7 +56,7 @@ class MembersList(Resource):
         parser.add_argument('name', required=True)
         parser.add_argument('fname', required=True)
         parser.add_argument('phone', required=True)
-        parser.add_argument('membership_date', required=True)
+        parser.add_argument('membership_exp', required=True)
 
         # Parse the arguments into an object
         args = parser.parse_args()
