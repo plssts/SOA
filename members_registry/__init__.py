@@ -89,7 +89,7 @@ class Member(Resource):
 
 
 api.add_resource(MembersList, '/members')
-api.add_resource(Device, '/member/<string:identifier>')
+api.add_resource(Member, '/member/<string:identifier>')
 
 
 
