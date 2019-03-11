@@ -15,7 +15,7 @@ api = Api(app)
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
-        db = g._database = shelve.open("devices.db")
+        db = g._database = shelve.open("members.db")
     return db
 
 @app.teardown_appcontext
@@ -38,12 +38,12 @@ def index():
         return markdown.markdown(content)
 
 
-class DeviceList(Resource):
+class MembersList(Resource):
     def get(self):
         shelf = get_db()
         keys = list(shelf.keys())
 
-        devices = []
+        members = []
 
         for key in keys:
             devices.append(shelf[key])
@@ -67,7 +67,7 @@ class DeviceList(Resource):
         return {'message': 'Device registered', 'data': args}, 201
 
 
-class Device(Resource):
+class Member(Resource):
     def get(self, identifier):
         shelf = get_db()
 
@@ -88,8 +88,8 @@ class Device(Resource):
         return '', 204
 
 
-api.add_resource(DeviceList, '/devices')
-api.add_resource(Device, '/device/<string:identifier>')
+api.add_resource(MembersList, '/members')
+api.add_resource(Device, '/member/<string:identifier>')
 
 
 
