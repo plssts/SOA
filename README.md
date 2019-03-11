@@ -39,12 +39,12 @@ WS ištrynimas -<br />
 Jei toks narys jau egzistuoja(pagal telefono numerį), tai senas įrašas bus pakeistas nauju
 
 
-## Grąžintį tam tikrą narį
+### Grąžinti tam tikrą narį
 
 `GET /members/<phone>`
 
 
-## Ištrinti narį
+### Ištrinti narį
 
 `DELETE /members/<phone>`
 
