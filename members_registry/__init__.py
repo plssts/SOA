@@ -53,6 +53,8 @@ class MembersList(Resource):
         return {'message': 'Success', 'data': members}, 200
 
     def post(self):
+        
+        
         parser = reqparse.RequestParser()
 
         parser.add_argument('name', required=True)
@@ -63,6 +65,9 @@ class MembersList(Resource):
         # Parse the arguments into an object
         args = parser.parse_args()
 
+        if (args['phone'] in shelf):
+            return {'message': 'Member already exists', 'data': {}}, 404
+            
         shelf = get_db()
         shelf[args['phone']] = args
 
