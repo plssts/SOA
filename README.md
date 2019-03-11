@@ -43,6 +43,17 @@ Jei toks narys jau egzistuoja(pagal telefono numerį), tai senas įrašas bus pa
 
 `GET /members/<phone>`
 
+### Pakeisti tam tikro nario duomenis
+
+`PUT /members/<phone>`
+
+**Argumentai**
+
+- `"name":string` vardas
+- `"fname":string` pavardė
+- `"phone":string` telefono numeris(unikalus įrašas)
+- `"membership_exp":string` iki kada galioja narystė
+
 
 ### Ištrinti narį
 
