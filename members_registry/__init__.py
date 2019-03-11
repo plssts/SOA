@@ -46,9 +46,9 @@ class MembersList(Resource):
         members = []
 
         for key in keys:
-            devices.append(shelf[key])
+            members.append(shelf[key])
 
-        return {'message': 'Success', 'data': devices}, 200
+        return {'message': 'Success', 'data': members}, 200
 
     def post(self):
         parser = reqparse.RequestParser()
