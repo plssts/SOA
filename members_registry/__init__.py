@@ -73,7 +73,7 @@ class Member(Resource):
         
         if not (phone in shelf):
             return {'message': 'Device not found', 'data': {}}, 404
-            id = phone
+            
         parser = reqparse.RequestParser()
     
         parser.add_argument('name', required=True)
@@ -85,7 +85,7 @@ class Member(Resource):
         args = parser.parse_args()
     
         shelf = get_db()
-        shelf[args[id]] = args
+        shelf[phone] = args
     
         return {'message': 'Device registered', 'data': args}, 201
             
