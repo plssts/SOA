@@ -62,34 +62,34 @@ class MembersList(Resource):
         args = parser.parse_args()
 
         shelf = get_db()
-        shelf[args['identifier']] = args
+        shelf[args['phone']] = args
 
         return {'message': 'Device registered', 'data': args}, 201
 
 
 class Member(Resource):
-    def get(self, identifier):
+    def get(self, phone):
         shelf = get_db()
 
         # If the key does not exist in the data store, return a 404 error.
-        if not (identifier in shelf):
+        if not (phone in shelf):
             return {'message': 'Device not found', 'data': {}}, 404
 
-        return {'message': 'Device found', 'data': shelf[identifier]}, 200
+        return {'message': 'Device found', 'data': shelf[phone]}, 200
 
-    def delete(self, identifier):
+    def delete(self, phone):
         shelf = get_db()
 
         # If the key does not exist in the data store, return a 404 error.
-        if not (identifier in shelf):
+        if not (phone in shelf):
             return {'message': 'Device not found', 'data': {}}, 404
 
-        del shelf[identifier]
+        del shelf[phone]
         return '', 204
 
 
 api.add_resource(MembersList, '/members')
-api.add_resource(Member, '/member/<string:identifier>')
+api.add_resource(Member, '/member/<string:phone>')
 
 
 
