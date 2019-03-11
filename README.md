@@ -102,11 +102,9 @@ Jei toks narys jau egzistuoja(pagal telefono numerį), tai senas įrašas bus pa
 }
 ```
 
-## Delete a device
+## Ištrinti narį
 
-**Definition**
-
-`DELETE /devices/<identifier>`
+`DELETE /devices/<phone>`
 
 **Response**
 
