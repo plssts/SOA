@@ -124,8 +124,8 @@ class NamesList(Resource):#pakeitimas2
     def get(self, let):
         shelf = get_db()
 
-        for (shelve in shelf):
-             if (shelf[args['name']].contains(let)))
+        for (shelve in shelf[args['name']):
+             if (shelf[shelve].contains(let))
                  return {'message': 'Member found', 'data': shelf[phone]}, 200
                  
         return {'message': 'Member not found', 'data': {}}, 404
