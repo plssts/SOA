@@ -121,13 +121,12 @@ class Member(Resource):
 class NamesList(Resource):#pakeitimas2
     def get(self, let):
         shelf = get_db()
-        
-    
 
-       if not (let in shelf):
+        # If the key does not exist in the data store, return a 404 error.
+        if not (let in shelf):
             return {'message': 'Member not found', 'data': {}}, 404
 
-        return {'message': 'Member found', 'data': shelf[let]}, 200
+        return {'message': 'Member found', 'data': shelf[phone]}, 200
 
      
   
