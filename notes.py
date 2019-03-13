@@ -34,7 +34,8 @@ class Notes(Resource):
             return {'message': 'Cannot rename this note - another one already exists with this title ', 'data': args}, 404
 
         del entries[title]
-        entries[title] = args
+        #entries[title] = args
+        entries[args['title']] = args
 
         return {'message': 'Note updated successfully', 'data': args}, 202
 
