@@ -12,12 +12,14 @@ class NotesList(Resource):
         elements = list(entries.keys())
         
         # Parametrizuotas grazinimas
-        import urllib.parse as urlparse
-        return (request.args)
-        parsed = urlparse.urlparse(request.data)
-        print (urlparse.parse_qs(parsed.query))
+        #import urllib.parse as urlparse
+        if 'author' in request.args:
+            notes = [entries[e] for e in entries if e.author == request.args.value()]
+            
+        #parsed = urlparse.urlparse(request.data)
+        #print (urlparse.parse_qs(parsed.query))
 
-        notes = [entries[e] for e in elements]
+        #notes = [entries[e] for e in elements]
 
         return {'message': 'All notes returned', 'data': notes}, 200
     
