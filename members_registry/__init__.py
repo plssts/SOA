@@ -127,7 +127,7 @@ class Name(Resource):#pakeitimas2
         
         # Parametrizuotas grazinimas - pagal 'author'
         if 'name' in request.args:
-            notes = [entries[e] for e in entries if entries[e].name == request.args.get('let')]
+            notes = [entries[e] for e in entries if entries[e].name == let]
 
         return {'message': 'Notes returned', 'data': notes}, 200
 
