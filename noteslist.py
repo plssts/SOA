@@ -13,8 +13,8 @@ class NotesList(Resource):
         
         # Parametrizuotas grazinimas
         import urllib.parse as urlparse
-        print (self.request)
-        parsed = urlparse.urlparse(self.request)
+        print (Flask.Request)
+        parsed = urlparse.urlparse(Flask.Request)
         print (urlparse.parse_qs(parsed.query))
 
         notes = [entries[e] for e in elements]
