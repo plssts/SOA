@@ -130,7 +130,7 @@ class NamesList(Resource):#pakeitimas2
             
             #if shelve[i].name.cointais(let)
             if "Kristupas" in shelve.name: 
-                return {'message': 'Member found', 'data': shelve[i]}, 200
+                return {'message': 'Member found', 'data': shelve}, 200
         
 
         return {'message': 'Member not found', 'data': {}}, 404
