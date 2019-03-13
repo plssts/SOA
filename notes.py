@@ -33,6 +33,7 @@ class Notes(Resource):
         if args['title'] in entries and args['title'] != title:
             return {'message': 'Cannot rename this note - another one already exists with this title ', 'data': args}, 404
 
+        del entries[title]
         entries[title] = args
 
         return {'message': 'Note updated successfully', 'data': args}, 202
