@@ -123,7 +123,7 @@ class Name(Resource):#pakeitimas2
         shelf = get_db()
 
         # If the key does not exist in the data store, return a 404 error.
-        if not (let in shelf):
+        if (let in shelf):
             return {'message': 'Member not found', 'data': {}}, 404
 
         return {'message': 'Member found', 'data': shelf[let]}, 200
