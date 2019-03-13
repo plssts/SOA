@@ -121,14 +121,13 @@ class Member(Resource):
 class NamesList(Resource):#pakeitimas2
     def get(self, let):
         shelf = get_db()
-        keys = list(shelf.keys())
         
-        members = []
+    
 
        # for i in shelf:
             
             #if shelve[i].name.cointais(let)
-        if (let not in shelf): 
+        if (let in shelf): 
             return {'message': 'Member found', 'data': shelf}, 200
         
 
