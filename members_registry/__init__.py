@@ -119,14 +119,17 @@ class Member(Resource):
         return '', 204
 
 class Name(Resource):#pakeitimas2
-    def get(self, let):
-        shelf = get_db()
+     def get(self, let):
+        entries = database()
+        elements = list(entries.keys())
+        
+        notes = [entries[e] for e in elements]
+        
+        # Parametrizuotas grazinimas - pagal 'author'
+        if 'author' in request.args:
+            notes = [entries[e] for e in entries if entries[e].author == request.args.get('author')]
 
-        # If the key does not exist in the data store, return a 404 error.
-        if not (let in shelf):
-            return {'message': 'Member not found', 'data': {}}, 404
-
-        return {'message': 'Member found', 'data': shelf[let]}, 200
+        return {'message': 'Notes returned', 'data': notes}, 200
 
      
   
