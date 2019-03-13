@@ -123,14 +123,13 @@ class NamesList(Resource):#pakeitimas2
         shelf = get_db()
         keys = list(shelf.keys())
         
-        kazkas = [shelve[i] for i in shelf]
         members = []
 
        # for i in shelf:
             
             #if shelve[i].name.cointais(let)
-        if (let in shelf): 
-            return {'message': 'Member found', 'data': shelf}, 200
+      #  if (let in shelf): 
+       #     return {'message': 'Member found', 'data': shelf}, 200
         
 
         return {'message': 'Member not found', 'data': {}}, 404
