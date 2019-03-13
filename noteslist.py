@@ -10,6 +10,12 @@ class NotesList(Resource):
     def get(self):
         entries = database()
         elements = list(entries.keys())
+        
+        # Parametrizuotas grazinimas
+        import urllib.parse as urlparse
+        print (self.request)
+        parsed = urlparse.urlparse(self.request)
+        print (urlparse.parse_qs(parsed.query))
 
         notes = [entries[e] for e in elements]
 
