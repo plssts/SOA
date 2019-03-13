@@ -30,7 +30,7 @@ class Notes(Resource):
 
         args = parser.parse_args()
         
-        if args['title'] in entries:
+        if args['title'] in entries and args['title'] != title:
             return {'message': 'Cannot rename this note - another one already exists with this title ', 'data': args}, 404
 
         entries[title] = args
