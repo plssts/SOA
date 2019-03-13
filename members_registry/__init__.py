@@ -128,7 +128,9 @@ class NamesList(Resource):#pakeitimas2
 
         for i in shelf:
             
-            if shelve[i].name.cointais(let)
+            #if shelve[i].name.cointais(let)
+            if "blah"  in shelve[i].name: 
+                return {'message': 'Member found', 'data': shelf[phone]}, 200
         
 
         return {'message': 'Member found', 'data': shelf[phone]}, 200
