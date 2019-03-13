@@ -93,7 +93,9 @@ class Member(Resource):
         args = parser.parse_args()
     
         shelf = get_db()
-        shelf[phone] = args
+        shelf[args['phone']] = args
+        del shelf[phone]
+        #pakeitimai
     
         return {'message': 'Member registered', 'data': args}, 201
             
