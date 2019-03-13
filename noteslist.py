@@ -31,6 +31,10 @@ class NotesList(Resource):
         args = parser.parse_args()
 
         entries = database()
+        
+        if args['title'] in entries:
+            return {'message': 'A note with this title already exists', 'data': args}, 404
+        
         entries[args['title']] = args
 
         return {'message': 'New note added', 'data': args}, 201
