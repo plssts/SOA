@@ -130,11 +130,22 @@ class NamesList(Resource):#pakeitimas2
 
      
   
-        
+class NamesList(Resource):
+    def get(self):
+        shelf = get_db()
+        keys = list(shelf.keys())
+
+        members = []
+
+        for key in keys:
+            members.append(shelf[key])
+
+        return {'message': 'Success', 'data': members}, 200
         
 api.add_resource(MembersList, '/members')
 api.add_resource(Member, '/members/<string:phone>')
-api.add_resource(NamesList, '/members/<string:let>')#pakeitimas 2
+api.add_resource(NamesList, '/names')
+api.add_resource(NamesList, '/namess/<string:let>')#pakeitimas 2
 
 
 
