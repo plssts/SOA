@@ -97,7 +97,7 @@ class Member(Resource):
         del shelf[phone]
         #pakeitimai
     
-        return {'message': 'Member registered', 'data': args}, 201
+        return {'message': 'Member registered', 'data': args}, 2012
             
     def get(self, phone):
         shelf = get_db()
