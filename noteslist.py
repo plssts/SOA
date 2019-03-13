@@ -11,18 +11,13 @@ class NotesList(Resource):
         entries = database()
         elements = list(entries.keys())
         
-        # Parametrizuotas grazinimas
-        #import urllib.parse as urlparse
-        notes = []
+        notes = [entries[e] for e in elements]
+        
+        # Parametrizuotas grazinimas - pagal 'author'
         if 'author' in request.args:
             notes = [entries[e] for e in entries if entries[e].author == request.args.get('author')]
-            
-        #parsed = urlparse.urlparse(request.data)
-        #print (urlparse.parse_qs(parsed.query))
 
-        #notes = [entries[e] for e in elements]
-
-        return {'message': 'All notes returned', 'data': notes}, 200
+        return {'message': 'Notes returned', 'data': notes}, 200
     
     # POST - kurimas
     def post(self):
