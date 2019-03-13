@@ -1,5 +1,5 @@
 # Sporto klubo narių registras
-```cd .. && sudo rm -r ws_1 && git clone https://git.mif.vu.lt/krsi3832/ws_1 && cd ws_1 && sudo docker-compose up --build```
+
 ## WS Įrašymas, paleidimas ir ištrynimas
 
 WS failų atsisiuntimas - <br />
