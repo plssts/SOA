@@ -134,7 +134,7 @@ class NamesList(Resource):#pakeitimas2
         
 api.add_resource(MembersList, '/members')
 api.add_resource(Member, '/members/<string:phone>')
-api.add_resource(NamesList, '/names/<string:let>')#pakeitimas 2
+api.add_resource(NamesList, '/members/<string:let>')#pakeitimas 2
 
 
 
