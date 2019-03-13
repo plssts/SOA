@@ -13,7 +13,7 @@ class NotesList(Resource):
         
         # Parametrizuotas grazinimas
         import urllib.parse as urlparse
-        return (request.data)
+        return (request.get_json())
         parsed = urlparse.urlparse(request.data)
         print (urlparse.parse_qs(parsed.query))
 
