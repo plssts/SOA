@@ -29,6 +29,9 @@ class Notes(Resource):
         parser.add_argument('expiration', required=True)
 
         args = parser.parse_args()
+        
+        if args['title'] in entries:
+            return {'message': 'Cannot rename this note - another one already exists with this title ', 'data': args}, 404
 
         entries[title] = args
 
