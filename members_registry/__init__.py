@@ -122,17 +122,16 @@ class NamesList(Resource):#pakeitimas2
     def get(self, let):
         shelf = get_db()
         keys = list(shelf.keys())
-
+        
+        kazkas = [shelve[i] for i in shelf]
         members = []
 
-        for key in keys:
-            if (shelf[key].contains(let))
-                return {'message': 'Member found', 'data': shelf[key]}, 200
-            members.append(shelf[key])
+        for (i in shelf):
+            
+            if shelve[i].name.cointais(let)
+        
 
-        return {'message': 'Success', 'data': members}, 200
-
- 
+        return {'message': 'Member found', 'data': shelf[phone]}, 200
      
             
    # def get(self, let):
