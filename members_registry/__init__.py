@@ -126,7 +126,7 @@ class NamesList(Resource):#pakeitimas2
         kazkas = [shelve[i] for i in shelf]
         members = []
 
-        for (i in shelf):
+        for i in shelf:
             
             if shelve[i].name.cointais(let)
         
