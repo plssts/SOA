@@ -13,6 +13,7 @@ class NotesList(Resource):
         
         # Parametrizuotas grazinimas
         #import urllib.parse as urlparse
+        notes = []
         if 'author' in request.args:
             notes = [entries[e] for e in entries if e.author == request.args.get('author')]
             
