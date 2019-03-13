@@ -133,22 +133,9 @@ class NamesList(Resource):#pakeitimas2
                 return {'message': 'Member found', 'data': shelf[phone]}, 200
         
 
-        return {'message': 'Membdddddnd', 'data': shelf[phone]}, 404
+        return {'message': 'Member not found', 'data': {}}, 404
      
-            
-   # def get(self, let):
-     #   shelf = get_db()
-
-      #  for (shelve in shelf[args[name]):
-       #      if (shelf[shelve].contains(let))
-        #         return {'message': 'Member found', 'data': shelf[phone]}, 200
-                 
-    #    return {'message': 'Member not found', 'data': {}}, 404
-        # If the key does not exist in the data store, return a 404 error.
-        #if not (phone in shelf):
-         #   return {'message': 'Member not found', 'data': {}}, 404
-
-        #return {'message': 'Member found', 'data': shelf[phone]}, 200
+  
         
         
 api.add_resource(MembersList, '/members')
