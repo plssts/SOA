@@ -5,6 +5,9 @@ import shelve
 app = Flask(__name__)
 
 class Notes(Resource):
+    def post():
+        return {'message': 'Action prohibited. ', 'data': {}}, 405
+    
     # GET - grazinimas pagal pavadinima
     def get(self, title):
         entries = database()
