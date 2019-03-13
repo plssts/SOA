@@ -120,7 +120,7 @@ class Member(Resource):
 
 class NamesList(Resource):#pakeitimas2
     def get(self, let):
-    shelf = get_db()
+        shelf = get_db()
         keys = list(shelf.keys())
 
         members = []
