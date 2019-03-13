@@ -6,10 +6,10 @@ app = Flask(__name__)
 
 # Valdo uzrasu saraso gyvavima
 class NotesList(Resource):
-    def put():
+    def put(self):
         return {'message': 'Action prohibited. ', 'data': {}}, 405
     
-    def delete():
+    def delete(self):
         return {'message': 'Action prohibited. ', 'data': {}}, 405
     
     # GET - grazinimas
