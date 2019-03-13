@@ -118,7 +118,7 @@ class Member(Resource):
         del shelf[phone]
         return '', 204
 
-class NamesList(Resource):#pakeitimas2
+class Name(Resource):#pakeitimas2
     def get(self, let):
         shelf = get_db()
 
