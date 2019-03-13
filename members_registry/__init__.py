@@ -126,7 +126,7 @@ class Name(Resource):#pakeitimas2
         if not (let in shelf):
             return {'message': 'Member not found', 'data': {}}, 404
 
-        return {'message': 'Member found', 'data': shelf[phone]}, 200
+        return {'message': 'Member found', 'data': shelf[let]}, 200
 
      
   
