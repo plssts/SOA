@@ -120,15 +120,29 @@ class Member(Resource):
 
 class NamesList(Resource):#pakeitimas2
 
-            
-    def get(self, let):
-        shelf = get_db()
+    shelf = get_db()
+        keys = list(shelf.keys())
 
-        for (shelve in shelf[args[name]):
-             if (shelf[shelve].contains(let))
-                 return {'message': 'Member found', 'data': shelf[phone]}, 200
+        members = []
+
+        for key in keys:
+            if (shelf[key].contains(let))
+                return {'message': 'Member found', 'data': shelf[key]}, 200
+            members.append(shelf[key])
+
+        return {'message': 'Success', 'data': members}, 200
+
+ 
+     
+            
+   # def get(self, let):
+     #   shelf = get_db()
+
+      #  for (shelve in shelf[args[name]):
+       #      if (shelf[shelve].contains(let))
+        #         return {'message': 'Member found', 'data': shelf[phone]}, 200
                  
-        return {'message': 'Member not found', 'data': {}}, 404
+    #    return {'message': 'Member not found', 'data': {}}, 404
         # If the key does not exist in the data store, return a 404 error.
         #if not (phone in shelf):
          #   return {'message': 'Member not found', 'data': {}}, 404
