@@ -119,14 +119,14 @@ class Member(Resource):
         return '', 204
 
 class Name(Resource):#pakeitimas2
-     def get(self, let):
+     def get(self, name):
         shelf = get_db()
 
         # If the key does not exist in the data store, return a 404 error.
-        if (let in shelf):
+        if (name in shelf):
             return {'message': 'Member not found', 'data': {}}, 404
 
-        return {'message': 'Member found', 'data': shelf[let]}, 200
+        return {'message': 'Member found', 'data': shelf[name]}, 200
 
      
   
@@ -145,7 +145,7 @@ class NamesList(Resource):
 api.add_resource(MembersList, '/members')
 api.add_resource(Member, '/members/<string:phone>')
 api.add_resource(NamesList, '/names')
-api.add_resource(Name, '/names/<string:let>')#pakeitimas 2
+api.add_resource(Name, '/names/<string:name>')#pakeitimas 2
 
 
 
