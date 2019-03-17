@@ -3,7 +3,7 @@ import os
 import shelve
 
 # Import the framework
-from flask import Flask, g
+from flask import Flask, g, jsonify
 from flask_restful import Resource, Api, reqparse
 
 # Create an instance of Flask
@@ -14,17 +14,16 @@ api = Api(app)
 
 #duomenu bazes uzkrovimas
 def get_db():
-    db = getattr(g, '_database', None)
-    if db is None:
-        db = g._database = shelve.open("members.db")
-    return db
+    if 'db' not in g:
+        g.db = shelve.open("members.db")
+    return g.db
 
 @app.teardown_appcontext
 def teardown_db(exception):
     db = getattr(g, '_database', None)
     if db is not None:
         db.close()
-        
+
 #README pagrindinis puslapis
 @app.route("/")
 def index():
@@ -122,11 +121,21 @@ class Name(Resource):#pakeitimas2
      def get(self, name):
         shelf = get_db()
 
+        # Zemiau esancios eilutes israso duombaze tiesiai i GET
+        #arr = []
+        #for key in shelf.keys():
+        #    arr.append(repr(key))
+        #    arr.append(repr(shelf[key]))
+        #return arr
+
+        # Surenkami elementai su ieskomu name
+        arr = [shelf[key] for key in shelf.keys() if name == shelf[key]['name']]
+        
         # If the key does not exist in the data store, return a 404 error.
-        if not (name in shelf):
+        if arr is None:
             return {'message': 'Member not found', 'data': {}}, 404
 
-        return {'message': 'Member found', 'data': shelf[name]}, 200
+        return {'message': 'Member found', 'data': arr}, 200
 
      
   
@@ -147,6 +156,7 @@ api.add_resource(Member, '/members/<string:phone>')
 api.add_resource(NamesList, '/names')
 api.add_resource(Name, '/names/<string:name>')
 
-
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', debug=True)
 
 
