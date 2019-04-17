@@ -1,10 +1,13 @@
-web:
- build: .
- command: python app.py
- ports:
-  - 80:5000
- volumes:
-  - .:/code
+version: '2'
+services:
+ web:
+  build: .
+  command: python app.py
+  ports:
+   - 80:5000
+  volumes:
+   - .:/code
+  container_name: base
 
 networks:
  default:
