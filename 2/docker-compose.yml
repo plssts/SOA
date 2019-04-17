@@ -5,3 +5,8 @@ web:
   - 80:5000
  volumes:
   - .:/code
+
+networks:
+ default:
+  external:
+   name: ws_bridge
