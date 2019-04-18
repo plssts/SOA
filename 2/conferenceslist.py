@@ -20,11 +20,11 @@ class ConferencesList(Resource):
 
         args = parser.parse_args()
         
-        nextCID = 1                     # used for looping through primary keys
+        nextCID = 0                     # used for looping through primary keys
         CID = 0                         # used as a new id
         entries = database()
         
-        while nextCID < 100: CID = nextCID if not (nextCID in entries) else 0
+        while nextCID += 1 < 100: CID = nextCID if not (nextCID in entries) else 0
         if CID == 0:
             return {'message': 'Database filled', 'data': {}}, 500
         
