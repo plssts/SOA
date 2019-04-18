@@ -31,7 +31,8 @@ class ConferencesList(Resource):
         if CID == '':
             return {'message': 'Database filled', 'data': {}}, 500
         
-        entries[CID] = args
+        args['cid'] = CID
+        entries[args['cid']] = args
 
         return {'message': 'New conference created', 'data': entries[CID]}, 201
 
