@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, g, jsonify
 from flask_restful import Api, Resource, reqparse
-from conferences import Conferences
+from conferenceslist import ConferencesList
 from members import Members
 from memberslist import MembersList
 import os
@@ -16,7 +16,7 @@ def home():
     requests.get('http://usr:5009/') # Initial call to fill DB
     return markdown.markdown(open('README.md', 'r').read())
 
-progInterface.add_resource(Conferences, '/conferences')
+progInterface.add_resource(ConferencesList, '/conferences')
 progInterface.add_resource(MembersList, '/members')
 progInterface.add_resource(Members, '/members/<string:email>')
 
