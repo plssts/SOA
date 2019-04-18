@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, g, jsonify
 from flask_restful import Api, Resource, reqparse
 from conferences import Conferences
-from users import Users
+from members import Members
 import os
 import markdown
 import requests
@@ -16,8 +16,8 @@ def home():
     return markdown.markdown(open('README.md', 'r').read())
 
 progInterface.add_resource(Conferences, '/conferences')
-#progInterface.add_resource(Users, '/users')
-#progInterface.add_resource(Users, '/users/<string:email>')
+progInterface.add_resource(Members, '/members')
+progInterface.add_resource(Members, '/members/<string:email>')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
