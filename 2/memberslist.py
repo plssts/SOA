@@ -4,9 +4,9 @@ import shelve
 
 app = Flask(__name__)
 
-class Members(Resource):
-    def get(self, email):
-        r = requests.get('http://usr:5009/users/' + email)
+class MembersList(Resource):
+    def get(self):
+        r = requests.get('http://usr:5009/users')
         return r.json()
         
 # duombazes uzkrovimas
