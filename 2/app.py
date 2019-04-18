@@ -16,8 +16,8 @@ def home():
     return markdown.markdown(open('README.md', 'r').read())
 
 progInterface.add_resource(Conferences, '/conferences')
-progInterface.add_resource(Users, '/users')
-progInterface.add_resource(Users, '/users/<string:email>')
+#progInterface.add_resource(Users, '/users')
+#progInterface.add_resource(Users, '/users/<string:email>')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
