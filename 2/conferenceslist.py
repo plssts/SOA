@@ -7,9 +7,12 @@ app = Flask(__name__)
 
 class ConferencesList(Resource):
     def get(self):
-        # headers = {'Accept': 'application/json'}
-        r = requests.get('http://usr:5009/users')
-        return r.json()
+        entries = database()
+        elements = list(entries.keys())
+        
+        conferences = [entries[e] for e in elements]
+
+        return {'message': 'Conferences', 'data': conferences}, 200
         
     def post(self):
         parser = reqparse.RequestParser()
@@ -20,7 +23,6 @@ class ConferencesList(Resource):
 
         args = parser.parse_args()
         
-        nextCID = 0                     # used for looping through primary keys
         CID = ''                        # used as a new id
         entries = database()
         
