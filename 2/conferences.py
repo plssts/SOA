@@ -13,6 +13,28 @@ class Conferences(Resource):
 
         return {'message': 'Conference', 'data': entries[str(cid)]}, 200
         
+    def put(self, cid):
+        parser = reqparse.RequestParser()
+        parser.add_argument('title', required=True)
+        parser.add_argument('info', required=True)
+        parser.add_argument('date', required=True)
+        args = parser.parse_args()
+        
+        args['cid'] = str(cid)
+        entries[args['cid']] = args
+
+        return {'message': 'New conference created', 'data': args}, 202
+        
+    def delete(self, cid):
+        entries = database()
+
+        if not (str(cid) in entries):
+            return {'message': 'No such conference', 'data': {}}, 404
+        
+        del entries[str(cid)]
+
+        return {'message': 'Conference removed', 'data': email}, 200
+        
 
 # duombazes uzkrovimas
 def database():
