@@ -66,11 +66,11 @@ class Members(Resource):
         
         # response loses its status somewhere, so
         # it is assembled manually
-        if r is None:
+        try:
+            resp = Response(str(r.json()).replace("'", '"'))
+            resp.status_code = 404
+        except:
             return '', 204
-
-        resp = Response(str(r.json()).replace("'", '"'))
-        resp.status_code = 404
         
         return resp
         
