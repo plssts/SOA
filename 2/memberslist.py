@@ -19,10 +19,4 @@ class MembersList(Resource):
         
         r = requests.post('http://usr:5009/users', data=args)
         
-        # response status code gets lost in the process
-        if r.json()['message'] == 'Email Already Exists':
-            r.status_code = 409
-        if r.json()['message'] == 'User created':
-            r.status_code = 201
-        
         return r.json()
