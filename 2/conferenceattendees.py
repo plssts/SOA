@@ -32,10 +32,10 @@ class ConferenceAttendees(Resource):
         
         previous.append(args['email'])
         args['attendees'] = previous
-        args.pop('email', None)
+        email = args.pop('email', None)
         entries[args['cid']] = args
 
-        return {'message': 'New attendee added', 'data': args}, 201
+        return {'message': 'New attendee added', 'data': email}, 201
         
     def delete(self, cid):
         entries = database()
@@ -54,7 +54,7 @@ class ConferenceAttendees(Resource):
         args['cid'] = str(cid)
         previous.remove(args['email'])
         args['attendees'] = previous
-        args.pop('email', None)
+        email = args.pop('email', None)
         entries[args['cid']] = args
         
         if not previous:
