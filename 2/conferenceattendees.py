@@ -16,16 +16,21 @@ class ConferenceAttendees(Resource):
     def post(self, cid):
         entries = database()
 
-        email = request.values.get('email')
-        if not email:
-            return {'message': 'No such member', 'data': email}, 404
+        #email = request.values.get('email')
         
         previous = entries[str(cid)]['attendees'] if str(cid) in entries else []
         
-        args = {'cid': '', 'attendees': []}
+        parser = reqparse.RequestParser()
+        parser.add_argument('email', required=True)
+        args = parser.parse_args()
+        
+        if not args['email']:
+            return {'message': 'No such member', 'data': email}, 404
+        
+        # args = {'cid': '', 'attendees': []}
         args['cid'] = str(cid)
         
-        previous.append(email)
+        previous.append(args['email'])
         args['attendees'] = previous
         entries[args['cid']] = args
 
@@ -37,13 +42,16 @@ class ConferenceAttendees(Resource):
         if not (str(cid) in entries):
             return {'message': 'No members anyway', 'data': {}}, 404
         
-        email = request.values.get('email')
+        # email = request.values.get('email')
         
         previous = entries[str(cid)]['attendees']
         
-        args = {'cid': '', 'attendees': []}
+        parser = reqparse.RequestParser()
+        parser.add_argument('email', required=True)
+        args = parser.parse_args()
+        # args = {'cid': '', 'attendees': []}
         args['cid'] = str(cid)
-        previous.remove(email)
+        previous.remove(args['email'])
         args['cid']['attendees'] = previous
         entries[args['cid']] = args
         
