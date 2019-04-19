@@ -16,7 +16,7 @@ class Members(Resource):
         parser.add_argument('lastName', required=True)
         parser.add_argument('email', required=True)
         args = parser.parse_args()
-        r = requests.post('http://usr:5009/users/' + email, data=args)
+        r = requests.put('http://usr:5009/users/' + email, data=args)
         return r.json()
 
     def patch(self, email):
