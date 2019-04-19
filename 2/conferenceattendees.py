@@ -17,10 +17,12 @@ class ConferenceAttendees(Resource):
         entries = database()
 
         email = request.values.get('email')
+        if not email:
+            return {'message': 'No such member', 'data': email}, 404
         
         previous = entries[str(cid)]['attendees'] if str(cid) in entries else []
         
-        args = {'cid': 0, 'attendees': []}
+        args = {'cid': '', 'attendees': []}
         args['cid'] = str(cid)
         
         previous.append(email)
@@ -39,7 +41,7 @@ class ConferenceAttendees(Resource):
         
         previous = entries[str(cid)]['attendees']
         
-        args = {'cid': 0, 'attendees': []}
+        args = {'cid': '', 'attendees': []}
         args['cid'] = str(cid)
         previous.remove(email)
         args['cid']['attendees'] = previous
