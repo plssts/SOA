@@ -20,6 +20,7 @@ class ConferenceAttendees(Resource):
         
         previous = entries[str(cid)]['attendees'] if str(cid) in entries else []
         
+        args = {}
         args['cid'] = str(cid)
         
         previous.append(email)
@@ -38,6 +39,7 @@ class ConferenceAttendees(Resource):
         
         previous = entries[str(cid)]['attendees']
         
+        args = {}
         args['cid'] = str(cid)
         previous.remove(email)
         args['cid']['attendees'] = previous
