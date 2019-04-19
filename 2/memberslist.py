@@ -1,5 +1,6 @@
 from flask import Flask, g
 from flask_restful import Resource, reqparse
+from werkzeug.wrappers import Response
 import shelve
 import requests
 
@@ -19,4 +20,12 @@ class MembersList(Resource):
         
         r = requests.post('http://usr:5009/users', data=args)
         
-        return r.json()
+        # response loses its status somewhere, so
+        # it is assembled manually
+        resp = Response(str(r.json()).replace("'", '"'))
+        if r.json()['message'] == 'Email Already Exists':
+            resp.status_code = 409
+        else:
+            resp.status_code = 201
+        
+        return resp
