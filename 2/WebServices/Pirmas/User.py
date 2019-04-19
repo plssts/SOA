@@ -101,7 +101,8 @@ class Users(Resource):
         else:
             shelf[email] = user
 
-        return {'message': 'User updated successfully', 'data': user}, 202, {'Location': '/users/' + args['email']}
+        return {'message': 'User updated successfully', 'data': user}, 202, {'Location': '/users/' + email}
+        # EDIT: at 104 args['email'] replaced by email
 
     def delete(self, email):
         shelf = get_db()

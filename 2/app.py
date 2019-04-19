@@ -15,7 +15,7 @@ progInterface = Api(app)
 
 @app.route('/', methods=["GET", "POST"])
 def home():
-    requests.get('http://usr:5009/') # Initial call to fill DB
+    # requests.get('http://usr:5009/') # Initial call to fill DB
     return markdown.markdown(open('README.md', 'r').read())
 
 progInterface.add_resource(ConferencesList, '/conferences')
