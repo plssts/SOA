@@ -14,6 +14,8 @@ class Conferences(Resource):
         return {'message': 'Conference', 'data': entries[str(cid)]}, 200
         
     def put(self, cid):
+        entries = database()
+    
         parser = reqparse.RequestParser()
         parser.add_argument('title', required=True)
         parser.add_argument('info', required=True)
@@ -33,7 +35,7 @@ class Conferences(Resource):
         
         del entries[str(cid)]
 
-        return {'message': 'Conference removed', 'data': email}, 200
+        return {'message': 'Conference removed', 'data': str(cid)}, 200
         
 
 # duombazes uzkrovimas
