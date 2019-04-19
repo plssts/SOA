@@ -27,7 +27,7 @@ class ConferenceAttendees(Resource):
         
         r = requests.get('http://usr:5009/users/' + args['email'])
         if r.status_code == 404:
-            return {'message': 'No such member', 'data': email}, 404
+            return {'message': 'No such member', 'data': args['email']}, 404
         
         # args = {'cid': '', 'attendees': []}
         args['cid'] = str(cid)
