@@ -10,7 +10,7 @@ class Members(Resource):
     def get(self, email):
         r = requests.get('http://usr:5009/users/' + email)
         
-        resp = Response(r.json())
+        resp = Response(response=r.json())
         if r.json()['message'] == 'User not found':
             resp.status_code = 404
         else:
