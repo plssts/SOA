@@ -1,6 +1,7 @@
 from flask import Flask, g, request
 from flask_restful import Resource, reqparse
 import shelve
+import requests
 
 app = Flask(__name__)
 
@@ -24,7 +25,8 @@ class ConferenceAttendees(Resource):
         parser.add_argument('email', required=True)
         args = parser.parse_args()
         
-        if not args['email']:
+        r = requests.get('http://usr:5009/users/' + args['email'])
+        if r.status_code == 404:
             return {'message': 'No such member', 'data': email}, 404
         
         # args = {'cid': '', 'attendees': []}
@@ -46,6 +48,8 @@ class ConferenceAttendees(Resource):
         # email = request.values.get('email')
         
         previous = entries[str(cid)]['attendees']
+        if not (args['email'] in previous):
+            return {'message': 'No such member', 'data': args['email']}, 404
         
         parser = reqparse.RequestParser()
         parser.add_argument('email', required=True)
