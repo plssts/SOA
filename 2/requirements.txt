@@ -2,4 +2,3 @@ flask
 flask_restful
 markdown
 requests
-fake_useragent

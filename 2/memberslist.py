@@ -1,6 +1,5 @@
 from flask import Flask, g
 from flask_restful import Resource, reqparse
-from fake_useragent import UserAgent
 import shelve
 import requests
 
@@ -18,9 +17,12 @@ class MembersList(Resource):
         parser.add_argument('email', required=True)
         args = parser.parse_args()
         
-        userAgent = UserAgent()
-        headers = { 'User-Agent': str(userAgent.random) }
+        r = requests.post('http://usr:5009/users', data=args)
         
-        r = requests.post('http://usr:5009/users', data=args, headers=headers)
+        # response status code gets lost in the process
+        if r.json()['message'] == 'Email Already Exists':
+            r.status_code = 409
+        if r.json()['message'] == 'User created':
+            r.status_code = 201
+        
         return r.json()
-        

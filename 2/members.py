@@ -1,6 +1,5 @@
 from flask import Flask, g
 from flask_restful import Resource, reqparse
-from fake_useragent import UserAgent
 import shelve
 import requests
 
@@ -9,6 +8,13 @@ app = Flask(__name__)
 class Members(Resource):
     def get(self, email):
         r = requests.get('http://usr:5009/users/' + email)
+        
+        # response status code gets lost in the process
+        if r.json()['message'] == 'User not found':
+            r.status_code = 404
+        if r.json()['message'] == 'User':
+            r.status_code = 200
+        
         return r.json()
         
     def put(self, email):
@@ -17,11 +23,16 @@ class Members(Resource):
         parser.add_argument('lastName', required=True)
         parser.add_argument('email', required=True)
         args = parser.parse_args()
+        r = requests.put('http://usr:5009/users/' + email, data=args)
         
-        userAgent = UserAgent()
-        headers = { 'User-Agent': str(userAgent.random) }
+        # response status code gets lost in the process
+        if r.json()['message'] == 'User not found':
+            r.status_code = 404
+        if r.json()['message'] == 'Email Already Exists':
+            r.status_code = 409
+        if r.json()['message'] == 'User updated successfully':
+            r.status_code = 202
         
-        r = requests.put('http://usr:5009/users/' + email, data=args, headers=headers)
         return r.json()
 
     def patch(self, email):
@@ -30,17 +41,26 @@ class Members(Resource):
         parser.add_argument('lastName', required=False)
         parser.add_argument('email', required=False)
         args = parser.parse_args()
+        r = requests.patch('http://usr:5009/users/' + email, data=args)
         
-        userAgent = UserAgent()
-        headers = { 'User-Agent': str(userAgent.random) }
+        # response status code gets lost in the process
+        if r.json()['message'] == 'User not found':
+            r.status_code = 404
+        if r.json()['message'] == 'Email Already Exists':
+            r.status_code = 409
+        if r.json()['message'] == 'User updated successfully':
+            r.status_code = 202
         
-        r = requests.patch('http://usr:5009/users/' + email, data=args, headers=headers)
         return r.json()
 
     def delete(self, email):
-        userAgent = UserAgent()
-        headers = { 'User-Agent': str(userAgent.random) }
-    
-        r = requests.delete('http://usr:5009/users/' + email, headers=headers)
+        r = requests.delete('http://usr:5009/users/' + email)
+        
+        # response status code gets lost in the process
+        if r.json()['message'] == 'User not found':
+            r.status_code = 404
+        else:
+            r.status_code = 204
+        
         return r.json()
         
