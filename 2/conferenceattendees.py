@@ -51,13 +51,14 @@ class ConferenceAttendees(Resource):
         # email = request.values.get('email')
         
         previous = entries[str(cid)]['attendees']
-        if not (args['email'] in previous):
-            return {'message': 'No such member', 'data': args['email']}, 404
         
         parser = reqparse.RequestParser()
         parser.add_argument('email', required=True)
         args = parser.parse_args()
-        # args = {'cid': '', 'attendees': []}
+        
+        if not (args['email'] in previous):
+            return {'message': 'No such member', 'data': args['email']}, 404
+        
         args['cid'] = str(cid)
         previous.remove(args['email'])
         args['attendees'] = previous
