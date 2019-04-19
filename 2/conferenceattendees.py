@@ -32,6 +32,7 @@ class ConferenceAttendees(Resource):
         
         previous.append(args['email'])
         args['attendees'] = previous
+        args.pop('email', None)
         entries[args['cid']] = args
 
         return {'message': 'New attendee added', 'data': args}, 201
@@ -52,7 +53,8 @@ class ConferenceAttendees(Resource):
         # args = {'cid': '', 'attendees': []}
         args['cid'] = str(cid)
         previous.remove(args['email'])
-        args['cid']['attendees'] = previous
+        args['attendees'] = previous
+        args.pop('email', None)
         entries[args['cid']] = args
         
         if not previous:
