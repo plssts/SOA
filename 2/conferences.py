@@ -25,7 +25,7 @@ class Conferences(Resource):
         args['cid'] = str(cid)
         entries[args['cid']] = args
 
-        return {'message': 'New conference created', 'data': args}, 202
+        return {'message': 'Conference updated', 'data': args}, 202
         
     def delete(self, cid):
         entries = database()
