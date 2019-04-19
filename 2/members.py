@@ -66,11 +66,11 @@ class Members(Resource):
         
         # response loses its status somewhere, so
         # it is assembled manually
+        if r is None:
+            return '', 204
+
         resp = Response(str(r.json()).replace("'", '"'))
-        if r.json()['message'] == 'User not found':
-            resp.status_code = 404
-        else:
-            resp.status_code = 204
+        resp.status_code = 404
         
         return resp
         
