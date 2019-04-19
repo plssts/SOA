@@ -26,7 +26,7 @@ class ConferenceAttendees(Resource):
         return {'message': '', 'data': args}, 200
         
         previous.append(args['email'])
-        args['cid']['attendees'] = previous
+        args['attendees'] = previous
         entries[args['cid']] = args
 
         return {'message': 'New attendee added', 'data': args}, 201
