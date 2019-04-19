@@ -10,17 +10,25 @@ class Members(Resource):
         r = requests.get('http://usr:5009/users/' + email)
         return r.json()
         
-# duombazes uzkrovimas
-def database():
-    if 'db' not in g:
-        g.db = shelve.open('conferences.db')
+    def put(self, email):
+        parser = reqparse.RequestParser()
+        parser.add_argument('firstName', required=True)
+        parser.add_argument('lastName', required=True)
+        parser.add_argument('email', required=True)
+        args = parser.parse_args()
+        r = requests.post('http://usr:5009/users/' + email, data=args)
+        return r.json()
 
-    return g.db
+    def patch(self, email):
+        parser = reqparse.RequestParser()
+        parser.add_argument('firstName', required=False)
+        parser.add_argument('lastName', required=False)
+        parser.add_argument('email', required=False)
+        args = parser.parse_args()
+        r = requests.patch('http://usr:5009/users/' + email, data=args)
+        return r.json()
 
-# duombazes panaikinimas
-@app.teardown_appcontext
-def teardown_db():
-    db = g.pop('db', None)
-
-    if db is not None:
-        db.close()
+    def delete(self, email):
+        r = requests.delete('http://usr:5009/users/' + email)
+        return r.json()
+        

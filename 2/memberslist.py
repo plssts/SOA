@@ -10,17 +10,12 @@ class MembersList(Resource):
         r = requests.get('http://usr:5009/users')
         return r.json()
         
-# duombazes uzkrovimas
-def database():
-    if 'db' not in g:
-        g.db = shelve.open('conferences.db')
-
-    return g.db
-
-# duombazes panaikinimas
-@app.teardown_appcontext
-def teardown_db():
-    db = g.pop('db', None)
-
-    if db is not None:
-        db.close()
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('firstName', required=True)
+        parser.add_argument('lastName', required=True)
+        parser.add_argument('email', required=True)
+        args = parser.parse_args()
+        r = requests.post('http://usr:5009/users', data=args)
+        return r.json()
+        
