@@ -3,6 +3,7 @@ from flask_restful import Resource, reqparse
 from werkzeug.wrappers import Response
 import shelve
 import requests
+import json
 
 app = Flask(__name__)
 
@@ -18,7 +19,7 @@ class Members(Resource):
         else:
             resp.status_code = 200
         
-        return jsonify(resp)
+        return resp
         
     def put(self, email):
         parser = reqparse.RequestParser()
