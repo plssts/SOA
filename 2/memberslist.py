@@ -1,5 +1,6 @@
 from flask import Flask, g
 from flask_restful import Resource, reqparse
+from fake_useragent import UserAgent
 import shelve
 import requests
 
@@ -16,6 +17,10 @@ class MembersList(Resource):
         parser.add_argument('lastName', required=True)
         parser.add_argument('email', required=True)
         args = parser.parse_args()
-        r = requests.post('http://usr:5009/users', data=args)
+        
+        userAgent = UserAgent()
+        headers = { 'User-Agent': str(userAgent.random) }
+        
+        r = requests.post('http://usr:5009/users', data=args, headers=headers)
         return r.json()
         
