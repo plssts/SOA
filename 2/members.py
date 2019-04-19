@@ -1,5 +1,6 @@
 from flask import Flask, g
 from flask_restful import Resource, reqparse
+from werkzeug.wrappers import Response
 import shelve
 import requests
 
@@ -9,7 +10,13 @@ class Members(Resource):
     def get(self, email):
         r = requests.get('http://usr:5009/users/' + email)
         
-        return r.json()
+        resp = Response(r.json())
+        if r.json()['message'] == 'User not found':
+            resp.status_code = 404
+        else:
+            resp.status_code = 200
+        
+        return resp
         
     def put(self, email):
         parser = reqparse.RequestParser()
