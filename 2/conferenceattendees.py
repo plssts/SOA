@@ -1,4 +1,4 @@
-from flask import Flask, g
+from flask import Flask, g, request
 from flask_restful import Resource, reqparse
 import shelve
 
@@ -15,17 +15,14 @@ class ConferenceAttendees(Resource):
         
     def post(self, cid):
         entries = database()
-        
-        parser = reqparse.RequestParser()
-        parser.add_argument('email', required=True)
-        args = parser.parse_args()
+
+        email = request.values.get('email')
         
         previous = entries[str(cid)]['attendees'] if str(cid) in entries else []
         
         args['cid'] = str(cid)
-        return {'message': '', 'data': args}, 200
         
-        previous.append(args['email'])
+        previous.append(email)
         args['attendees'] = previous
         entries[args['cid']] = args
 
@@ -35,22 +32,21 @@ class ConferenceAttendees(Resource):
         entries = database()
 
         if not (str(cid) in entries):
-            return {'message': 'No members as of yet', 'data': {}}, 404
-
-        entries = database()
+            return {'message': 'No members anyway', 'data': {}}, 404
         
-        parser = reqparse.RequestParser()
-        parser.add_argument('email', required=True)
-        args = parser.parse_args()
+        email = request.values.get('email')
         
         previous = entries[str(cid)]['attendees']
         
         args['cid'] = str(cid)
-        previous.remove(args['email'])
+        previous.remove(email)
         args['cid']['attendees'] = previous
         entries[args['cid']] = args
+        
+        if not previous:
+            del entries[str(cid)]   # removing empty list
 
-        return {'message': 'Attendee removed', 'data': {}}, 200
+        return {'message': 'Attendee removed', 'data': email}, 200
         
 
 # duombazes uzkrovimas
