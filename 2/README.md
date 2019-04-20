@@ -31,9 +31,10 @@ Navigate to ```SOA/2``` and execute ```./init.sh```. This will build and link al
 
 It is recommended to execute ```./cleanup.sh``` (again, make this file executable with ```chmod +x cleanup.sh``` if needed) after finishing using the service. This will stop running services, remove the dedicated network bridge and clean images.
 
-# Working with members <a name="wwm"></a>
-
-## Show all members <a name="wwm1"></a>
+<a name="wwm"></a>
+# Working with members
+<a name="wwm1"></a>
+## Show all members
 
 GET /members
 
@@ -62,7 +63,8 @@ Response:
     ]
 }
 ```
-## Create a new member <a name="wwm2"></a>
+<a name="wwm2"></a>
+## Create a new member
 
 POST /members
 
@@ -91,8 +93,8 @@ Creating a new member with an existing email returns
 }
 ```
 with status ```409```.
-
-## Show a specific member <a name="wwm3"></a>
+<a name="wwm3"></a>
+## Show a specific member
 
 GET /members/{email}
   
@@ -116,8 +118,8 @@ Response:
     "data": {}
 }
 ```
-
-## Edit a specific member <a name="wwm4"></a>
+<a name="wwm4"></a>
+## Edit a specific member
 
 PUT /members/{email}
 
@@ -170,8 +172,8 @@ Responds in a similar way as with the PUT requests. However, do not include the 
     "data": {}
 }
 ```
-
-## Delete a specific member <a name="wwm5"></a>
+<a name="wwm5"></a>
+## Delete a specific member
 
 DELETE /members/{email}
 
@@ -185,10 +187,10 @@ Specifying a nonexistent email returns:
 }
 ```
 with status ```404```.
-
-# Working with conferences <a name="wwc"></a>
-
-## Show all conferences <a name="wwc1"></a>
+<a name="wwc"></a>
+# Working with conferences
+<a name="wwc1"></a>
+## Show all conferences
 
 GET /conferences
 
@@ -213,8 +215,8 @@ Response:
 }
 ```
 with status ```200```.
-
-## Create a new conference <a name="wwc2"></a>
+<a name="wwc2"></a>
+## Create a new conference
 
 POST /conferences
 
@@ -236,8 +238,8 @@ Responds with the new resource and its fields:
 }
 ```
 with status ```201```. Conference IDs are managed automatically.
-
-## Show a specific conference <a name="wwc3"></a>
+<a name="wwc3"></a>
+## Show a specific conference
 
 GET /conferences/{cid}
 
@@ -262,8 +264,8 @@ Requesting with incorrect cid returns
 }
 ```
 with status ```404```.
-
-## Edit a specific conference <a name="wwc4"></a>
+<a name="wwc4"></a>
+## Edit a specific conference
 
 PUT /conferences/{cid}
 
@@ -293,8 +295,8 @@ Trying to edit a nonexistent conference returns
 }
 ```
 with status ```404```.
-
-## Delete a specific conference <a name="wwc5"></a>
+<a name="wwc5"></a>
+## Delete a specific conference
 
 DELETE /conferences/{cid}
 
@@ -313,10 +315,10 @@ Specifying a nonexistent cid returns:
 }
 ```
 with status ```404```.
-
-# Working with conference attendees <a name="wwca"></a>
-
-## Show all attendees <a name="wwca1"></a>
+<a name="wwca"></a>
+# Working with conference attendees
+<a name="wwca1"></a>
+## Show all attendees
 
 GET /conferences/{cid}/attendees
 
@@ -341,8 +343,8 @@ When there are no attendees at the time, the response shows
 }
 ```
 with status ```404```.
-
-## Assign a new attendee <a name="wwca2"></a>
+<a name="wwca2"></a>
+## Assign a new attendee
 
 POST /conferences/{cid}/attendees
 
@@ -374,8 +376,8 @@ Status ```409``` is returned if there is an attempt to include an existing atten
     "data": "newguy@gmail.com"
 }
 ```
-
-## Remove an attendee <a name="wwca3"></a>
+<a name="wwca3"></a>
+## Remove an attendee
 
 DELETE /conferences/{cid}/attendees
 
