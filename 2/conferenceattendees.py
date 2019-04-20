@@ -10,7 +10,7 @@ class ConferenceAttendees(Resource):
         entries = database()
         
         if not (str(cid) in entries):
-            return {'message': 'No members as of yet', 'data': {}}, 200
+            return {'message': 'No members as of yet', 'data': {}}, 404
 
         return {'message': 'Conference', 'data': entries[str(cid)]}, 200
         
@@ -26,7 +26,7 @@ class ConferenceAttendees(Resource):
         args = parser.parse_args()
         
         if args['email'] in previous:
-            return {'message': 'This member is already participating', 'data': args['email']}, 404
+            return {'message': 'This member is already participating', 'data': args['email']}, 409
         
         r = requests.get('http://usr:5009/users/' + args['email'])
         if r.status_code == 404:
