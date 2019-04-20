@@ -2,6 +2,27 @@
 
 RESTful conference data manager utilising external [user service](https://github.com/Martis467/WebServices/tree/master/Antras "Original documentation").
 
+Jump to:
+
+[Working with members](#wwm):
+- <sub> [Show all members](#wwm1)
+- <sub> [Create a new member](#wwm2)
+- <sub> [Show a specific member](#wwm3)
+- <sub> [Edit a specific member](#wwm4)
+- <sub> [Delete a specific member](#wwm5)
+
+[Working with conferences](#wwc):
+- <sub> [Show all conferences](#wwc1)
+- <sub> [Create a new conference](#wwc2)
+- <sub> [Show a specific conference](#wwc3)
+- <sub> [Edit a specific conference](#wwc4)
+- <sub> [Delete a specific conference](#wwc5)
+
+[Working with conference attendees](#wwca):
+- <sub> [Show all attendees](#wwca1)
+- <sub> [Assign a new attendee](#wwca2)
+- <sub> [Remove an attendee](#wwca3)
+
 ## Launch services
 
 Clone this repository with ```git clone https://github.com/plssts/SOA```.
@@ -10,9 +31,9 @@ Navigate to ```SOA/2``` and execute ```./init.sh```. This will build and link al
 
 It is recommended to execute ```./cleanup.sh``` (again, make this file executable with ```chmod +x cleanup.sh``` if needed) after finishing using the service. This will stop running services, remove the dedicated network bridge and clean images.
 
-# Working with members
+# Working with members <a name="wwm"></a>
 
-## Show all members
+## Show all members <a name="wwm1"></a>
 
 GET /members
 
@@ -41,7 +62,7 @@ Response:
     ]
 }
 ```
-## Create a new member
+## Create a new member <a name="wwm2"></a>
 
 POST /members
 
@@ -71,7 +92,7 @@ Creating a new member with an existing email returns
 ```
 with status ```409```.
 
-## Show a specific member
+## Show a specific member <a name="wwm3"></a>
 
 GET /members/{email}
   
@@ -96,7 +117,7 @@ Response:
 }
 ```
 
-## Edit a specific member
+## Edit a specific member <a name="wwm4"></a>
 
 PUT /members/{email}
 
@@ -150,7 +171,7 @@ Responds in a similar way as with the PUT requests. However, do not include the 
 }
 ```
 
-## Delete a specific member
+## Delete a specific member <a name="wwm5"></a>
 
 DELETE /members/{email}
 
@@ -165,9 +186,9 @@ Specifying a nonexistent email returns:
 ```
 with status ```404```.
 
-# Working with conferences
+# Working with conferences <a name="wwc"></a>
 
-## Show all conferences
+## Show all conferences <a name="wwc1"></a>
 
 GET /conferences
 
@@ -193,7 +214,7 @@ Response:
 ```
 with status ```200```.
 
-## Create a new conference
+## Create a new conference <a name="wwc2"></a>
 
 POST /conferences
 
@@ -216,7 +237,7 @@ Responds with the new resource and its fields:
 ```
 with status ```201```. Conference IDs are managed automatically.
 
-## Show a specific conference
+## Show a specific conference <a name="wwc3"></a>
 
 GET /conferences/{cid}
 
@@ -242,7 +263,7 @@ Requesting with incorrect cid returns
 ```
 with status ```404```.
 
-## Edit a specific conference
+## Edit a specific conference <a name="wwc4"></a>
 
 PUT /conferences/{cid}
 
@@ -273,7 +294,7 @@ Trying to edit a nonexistent conference returns
 ```
 with status ```404```.
 
-## Delete a specific conference
+## Delete a specific conference <a name="wwc5"></a>
 
 DELETE /conferences/{cid}
 
@@ -293,9 +314,9 @@ Specifying a nonexistent cid returns:
 ```
 with status ```404```.
 
-# Working with conference attendees
+# Working with conference attendees <a name="wwca"></a>
 
-## Show all attendees
+## Show all attendees <a name="wwca1"></a>
 
 GET /conferences/{cid}/attendees
 
@@ -321,7 +342,7 @@ When there are no attendees at the time, the response shows
 ```
 with status ```404```.
 
-## Assign a new attendee
+## Assign a new attendee <a name="wwca2"></a>
 
 POST /conferences/{cid}/attendees
 
@@ -354,7 +375,7 @@ Status ```409``` is returned if there is an attempt to include an existing atten
 }
 ```
 
-## Remove an attendee
+## Remove an attendee <a name="wwca3"></a>
 
 DELETE /conferences/{cid}/attendees
 
