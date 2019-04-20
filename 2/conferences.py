@@ -15,6 +15,9 @@ class Conferences(Resource):
         
     def put(self, cid):
         entries = database()
+        
+        if not (str(cid) in entries):
+            return {'message': 'No such conference', 'data': {}}, 404
     
         parser = reqparse.RequestParser()
         parser.add_argument('title', required=True)
