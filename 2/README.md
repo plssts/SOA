@@ -5,23 +5,23 @@ RESTful conference data manager utilising external [user service](https://github
 Jump to:
 
 [Working with members](#wwm):
-- <sub> [Show all members](#wwm1)
-- <sub> [Create a new member](#wwm2)
-- <sub> [Show a specific member](#wwm3)
-- <sub> [Edit a specific member](#wwm4)
-- <sub> [Delete a specific member](#wwm5)
+- <sub> [Show all members](#wwm1)</sub>
+- <sub> [Create a new member](#wwm2)</sub>
+- <sub> [Show a specific member](#wwm3)</sub>
+- <sub> [Edit a specific member](#wwm4)</sub>
+- <sub> [Delete a specific member](#wwm5)</sub>
 
 [Working with conferences](#wwc):
-- <sub> [Show all conferences](#wwc1)
-- <sub> [Create a new conference](#wwc2)
-- <sub> [Show a specific conference](#wwc3)
-- <sub> [Edit a specific conference](#wwc4)
-- <sub> [Delete a specific conference](#wwc5)
+- <sub> [Show all conferences](#wwc1)</sub>
+- <sub> [Create a new conference](#wwc2)</sub>
+- <sub> [Show a specific conference](#wwc3)</sub>
+- <sub> [Edit a specific conference](#wwc4)</sub>
+- <sub> [Delete a specific conference](#wwc5)</sub>
 
 [Working with conference attendees](#wwca):
-- <sub> [Show all attendees](#wwca1)
-- <sub> [Assign a new attendee](#wwca2)
-- <sub> [Remove an attendee](#wwca3)
+- <sub> [Show all attendees](#wwca1)</sub>
+- <sub> [Assign a new attendee](#wwca2)</sub>
+- <sub> [Remove an attendee](#wwca3)</sub>
 
 ## Launch services
 
