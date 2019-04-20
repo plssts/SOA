@@ -34,7 +34,7 @@ class Members(Resource):
         resp = Response(str(r.json()).replace("'", '"'))
         if r.json()['message'] == 'User not found':
             resp.status_code = 404
-        if r.json()['message'] == 'Email Already Exists':
+        elif r.json()['message'] == 'Email Already Exists':
             resp.status_code = 409
         else:
             resp.status_code = 202
@@ -54,7 +54,7 @@ class Members(Resource):
         resp = Response(str(r.json()).replace("'", '"'))
         if r.json()['message'] == 'User not found':
             resp.status_code = 404
-        if r.json()['message'] == 'Email Already Exists':
+        elif r.json()['message'] == 'Email Already Exists':
             resp.status_code = 409
         else:
             resp.status_code = 202
