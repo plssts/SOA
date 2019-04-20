@@ -41,6 +41,7 @@ GET /members
 Status ```200``` on successfully fetching members.
 
 Response:
+
 ```
 {
     "message": "Success",
@@ -75,6 +76,7 @@ Arguments:
 
 Status ```201``` on success.
 Response includes the new user with its fields:
+
 ```
 {
     "message": "User created",
@@ -85,13 +87,16 @@ Response includes the new user with its fields:
     }
 }
 ```
+
 Creating a new member with an existing email returns
+
 ```
 {
     "message": "Email Already Exists",
     "data": {}
 }
 ```
+
 with status ```409```.
 <a name="wwm3"></a>
 ## Show a specific member
@@ -100,6 +105,7 @@ GET /members/{email}
   
 Status ```200``` if there is a member with the specified email.
 Response:
+
 ```
 {
     "message": "User",
@@ -110,8 +116,10 @@ Response:
     }
 }
 ```
+
 Status ```404``` is returned if the email was nonexistent.
 Response:
+
 ```
 {
     "message": "User not found",
@@ -130,6 +138,7 @@ Arguments:
 
 Successful changes return status ```202```.
 Response includes the new fields:
+
 ```
 {
     "message": "User updated successfully",
@@ -140,21 +149,26 @@ Response includes the new fields:
     }
 }
 ```
+
 Trying to specify a new email when it is already used returns:
+
 ```
 {
     "message": "Email Already Exists",
     "data": {}
 }
 ```
+
 with status ```409```.
 Requesting edits for an unused email returns:
+
 ```
 {
     "message": "User not found",
     "data": {}
 }
 ```
+
 with status ```404```.
 
 PATCH /members/{email}
@@ -166,6 +180,7 @@ Arguments (optional):
 
 
 Responds in a similar way as with the PUT requests. However, do not include the email field if you do not wish to modify it. Otherwise it triggers status ```409``` with
+
 ```
 {
     "message": "Email Already Exists",
@@ -180,12 +195,14 @@ DELETE /members/{email}
 Status ```204``` is returned after the member is deleted. There is no data included with this response.
 
 Specifying a nonexistent email returns:
+
 ```
 {
     "message": "User not found",
     "data": {}
 }
 ```
+
 with status ```404```.
 <a name="wwc"></a>
 # Working with conferences
@@ -195,6 +212,7 @@ with status ```404```.
 GET /conferences
 
 Response:
+
 ```
 {
     "message": "Conferences",
@@ -214,6 +232,7 @@ Response:
     ]
 }
 ```
+
 with status ```200```.
 <a name="wwc2"></a>
 ## Create a new conference
@@ -226,6 +245,7 @@ Arguments:
 - date: string
 
 Responds with the new resource and its fields:
+
 ```
 {
     "message": "New conference created",
@@ -237,6 +257,7 @@ Responds with the new resource and its fields:
     }
 }
 ```
+
 with status ```201```. Conference IDs are managed automatically.
 <a name="wwc3"></a>
 ## Show a specific conference
@@ -245,6 +266,7 @@ GET /conferences/{cid}
 
 Status ```200``` if there is a conference with the specified cid.
 Response:
+
 ```
 {
     "message": "Conference",
@@ -256,13 +278,16 @@ Response:
     }
 }
 ```
+
 Requesting with incorrect cid returns
+
 ```
 {
     "message": "No such conference",
     "data": {}
 }
 ```
+
 with status ```404```.
 <a name="wwc4"></a>
 ## Edit a specific conference
@@ -276,6 +301,7 @@ Arguments:
 
 Successful changes return status ```200```.
 Response includes the new fields:
+
 ```
 {
     "message": "Conference updated",
@@ -287,13 +313,16 @@ Response includes the new fields:
     }
 }
 ```
+
 Trying to edit a nonexistent conference returns
+
 ```
 {
     "message": "No such conference",
     "data": {}
 }
 ```
+
 with status ```404```.
 <a name="wwc5"></a>
 ## Delete a specific conference
@@ -301,19 +330,23 @@ with status ```404```.
 DELETE /conferences/{cid}
 
 Status ```200``` is returned after the conference is deleted. Response includes the cid:
+
 ```
 {
     "message": "Conference removed",
     "data": "1"
 }
 ```
+
 Specifying a nonexistent cid returns:
+
 ```
 {
     "message": "No such conference",
     "data": {}
 }
 ```
+
 with status ```404```.
 <a name="wwca"></a>
 # Working with conference attendees
@@ -323,6 +356,7 @@ with status ```404```.
 GET /conferences/{cid}/attendees
 
 Status ```200``` is returned along with a list of attendees:
+
 ```
 {
     "message": "Conference",
@@ -335,13 +369,16 @@ Status ```200``` is returned along with a list of attendees:
     }
 }
 ```
+
 When there are no attendees at the time, the response shows
+
 ```
 {
     "message": "No members as of yet",
     "data": {}
 }
 ```
+
 with status ```404```.
 <a name="wwca2"></a>
 ## Assign a new attendee
@@ -352,24 +389,29 @@ Arguments:
 - email: string
 
 Response includes the new attendee:
+
 ```
 {
     "message": "New attendee added",
     "data": "bob.page@gmail.com"
 }
 ```
+
 with status ```201``` on success.
 
 Trying to add someone who is not listed under members returns
+
 ```
 {
     "message": "No such member",
     "data": "invalid@mail.com"
 }
 ```
+
 with status ```404```.
 
 Status ```409``` is returned if there is an attempt to include an existing attendee. Response:
+
 ```
 {
     "message": "This member is already participating",
@@ -385,21 +427,26 @@ Arguments:
 - email: string
 
 Status ```200``` on successful removal. Response:
+
 ```
 {
     "message": "Attendee removed",
     "data": "haas@gmail.com"
 }
 ```
+
 Trying to remove someone who is already not attending a conference produces a response:
+
 ```
 {
     "message": "No such member",
     "data": "hyron@gmail.com"
 }
 ```
+
 with status ```404```.
 Trying to remove someone when there are no attendees at all gives status ```404``` with
+
 ```
 {
     "message": "No members anyway",
