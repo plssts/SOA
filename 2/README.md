@@ -24,19 +24,19 @@ Response:
     "message": "Success",
     "data": [
         {
-            "firstName": "Name",
-            "lastName": "Last name",
-            "email": "sample@gmail.com"
+            "firstName": "Declan",
+            "lastName": "Faherty",
+            "email": "d.faherty@gmail.com"
         },
         {
-            "firstName": "Seras",
-            "lastName": "Meras",
-            "email": "sir.mayor@gmail.com"
+            "firstName": "Arie",
+            "lastName": "van Bruggen",
+            "email": "windmill@gmail.com"
         },
         {
-            "firstName": "Test",
-            "lastName": "Guy",
-            "email": "nomail@gmail.com"
+            "firstName": "Greg",
+            "lastName": "Thorpe",
+            "email": "oldguy@gmail.com"
         }
     ]
 }
@@ -56,9 +56,9 @@ Response includes the new user with its fields:
 {
     "message": "User created",
     "data": {
-        "firstName": "New",
-        "lastName": "Member",
-        "email": "demo@gmail.com"
+        "firstName": "Mr",
+        "lastName": "Darrow",
+        "email": "theranch@gmail.com"
     }
 }
 ```
@@ -81,9 +81,9 @@ Response:
 {
     "message": "User",
     "data": {
-        "firstName": "Test",
-        "lastName": "Guy",
-        "email": "nomail@gmail.com"
+        "firstName": "Greg",
+        "lastName": "Thorpe",
+        "email": "oldguy@gmail.com"
     }
 }
 ```
@@ -141,6 +141,7 @@ Arguments (optional):
 - lastName: string
 - email: string (unique)
 
+
 Responds in a similar way as with the PUT requests. However, do not include the email field if you do not wish to modify it. Otherwise it triggers status ```409``` with
 ```
 {
@@ -192,7 +193,7 @@ Response:
 ```
 with status ```200```.
 
-# Create a new conference
+## Create a new conference
 
 POST /conferences
 
@@ -215,7 +216,7 @@ Responds with the new resource and its fields:
 ```
 with status ```201```. Conference IDs are managed automatically.
 
-# Show a specific conference
+## Show a specific conference
 
 GET /conferences/{cid}
 
@@ -241,7 +242,7 @@ Requesting with incorrect cid returns
 ```
 with status ```404```.
 
-# Edit a specific conference
+## Edit a specific conference
 
 PUT /conferences/{cid}
 
@@ -263,14 +264,122 @@ Response includes the new fields:
     }
 }
 ```
-
-EDITING HERE AT THE MOMENT
-
-Requesting edits for an unused email returns:
+Trying to edit a nonexistent conference returns
 ```
 {
-    "message": "User not found",
+    "message": "No such conference",
     "data": {}
 }
 ```
 with status ```404```.
+
+## Delete a specific conference
+
+DELETE /conferences/{cid}
+
+Status ```200``` is returned after the conference is deleted. Response includes the cid:
+```
+{
+    "message": "Conference removed",
+    "data": "1"
+}
+```
+Specifying a nonexistent cid returns:
+```
+{
+    "message": "No such conference",
+    "data": {}
+}
+```
+with status ```404```.
+
+# Working with conference attendees
+
+## Show all attendees
+
+GET /conferences/{cid}/attendees
+
+Status ```200``` is returned along with a list of attendees:
+```
+{
+    "message": "Conference",
+    "data": {
+        "cid": "3",
+        "attendees": [
+            "panchaea@gmail.com",
+            "newguy@gmail.com"
+        ]
+    }
+}
+```
+When there are no attendees at the time, the response shows
+```
+{
+    "message": "No members as of yet",
+    "data": {}
+}
+```
+with status ```404```.
+
+## Assign a new attendee
+
+POST /conferences/{cid}/attendees
+
+Arguments:
+- email: string
+
+Response includes the new attendee:
+```
+{
+    "message": "New attendee added",
+    "data": "bob.page@gmail.com"
+}
+```
+with status ```201``` on success.
+
+Trying to add someone who is not listed under members returns
+```
+{
+    "message": "No such member",
+    "data": "invalid@mail.com"
+}
+```
+with status ```404```.
+
+Status ```409``` is returned if there is an attempt to include an existing attendee. Response:
+```
+{
+    "message": "This member is already participating",
+    "data": "newguy@gmail.com"
+}
+```
+
+## Remove an attendee
+
+DELETE /conferences/{cid}/attendees
+
+Arguments:
+- email: string
+
+Status ```200``` on successful removal. Response:
+```
+{
+    "message": "Attendee removed",
+    "data": "haas@gmail.com"
+}
+```
+Trying to remove someone who is already not attending a conference produces a response:
+```
+{
+    "message": "No such member",
+    "data": "hyron@gmail.com"
+}
+```
+with status ```404```.
+Trying to remove someone when there are no attendees at all gives status ```404``` with
+```
+{
+    "message": "No members anyway",
+    "data": {}
+}
+```
