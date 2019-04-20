@@ -6,7 +6,7 @@ Atsikopijuoti repozitorija:
 
 - ```git clone https://github.com/plssts/SOA```
 
-Is SOA aplanko subuildinti ir paleisti:
+Is SOA/1 aplanko subuildinti ir paleisti:
 
 - ```docker-compose up --build -d```
 
