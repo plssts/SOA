@@ -23,7 +23,7 @@ Jump to:
 - <sub> [Assign a new attendee](#wwca2)</sub>
 - <sub> [Remove an attendee](#wwca3)</sub>
 
-## Launch services
+# Launch services
 
 Clone this repository with ```git clone https://github.com/plssts/SOA```.
 
