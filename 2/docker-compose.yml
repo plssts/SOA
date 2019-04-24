@@ -12,7 +12,7 @@ services:
     - ws_bridge
  usr:
   build: .
-  command: bash -c "cp users.db ../../ && python WebServices/Pirmas/app.py"
+  command: python WebServices/Pirmas/app.py
   ports:
     - "5009:5009"
   volumes:
