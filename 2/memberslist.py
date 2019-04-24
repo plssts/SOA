@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 class MembersList(Resource):
     def get(self):
-        r = requests.get('http://usr:5009/users')
+        r = requests.get('http://usr_s:5009/users')
         return r.json()
         
     def post(self):
@@ -18,7 +18,7 @@ class MembersList(Resource):
         parser.add_argument('email', required=True)
         args = parser.parse_args()
         
-        r = requests.post('http://usr:5009/users', data=args)
+        r = requests.post('http://usr_s:5009/users', data=args)
         
         # response loses its status somewhere, so
         # it is assembled manually
