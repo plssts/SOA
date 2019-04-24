@@ -3,7 +3,4 @@ FROM python:3
 ADD . /code
 WORKDIR /code
 
-ENTRYPOINT [ "sh", "-c", "docker container rm base" ]
-ENTRYPOINT [ "sh", "-c", "docker container rm usr" ]
-
 RUN pip install --no-cache-dir -r requirements.txt
