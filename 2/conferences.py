@@ -14,7 +14,7 @@ class Conferences(Resource):
         dataHash = entries[str(cid)]
         
         if 'embedded' in request.args:
-            dataHash['attendees'] = shelve.open('attendees.db')[str(cid)]
+            dataHash['attendees'] = shelve.open('attendees.db')[str(cid)]['attendees']
 
         return {'message': 'Conference', 'data': dataHash}, 200
         
