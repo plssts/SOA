@@ -40,9 +40,10 @@ class Conferences(Resource):
                 return {'message': 'No such member', 'data': args['email']}, 404
             
             previous.append(args['email'])
+            return previous
             shelve.open('attendees.db')[str(cid)]['attendees'] = previous
         else:
-            return {'message': 'Conference', 'data': dataHash}, 405
+            return {'message': 'POST on /conferences/cid is for adding attendees only', 'data': {}}, 405
         
     def put(self, cid):
         entries = database()
