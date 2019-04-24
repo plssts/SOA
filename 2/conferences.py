@@ -39,9 +39,12 @@ class Conferences(Resource):
             if r.status_code == 404:
                 return {'message': 'No such member', 'data': args['email']}, 404
             
+            args['cid'] = str(cid)
             previous.append(args['email'])
-            return previous
-            shelve.open('attendees.db')[str(cid)]['attendees'] = previous
+            args['attendees'] = previous
+            email = args.pop('email', None)
+            shelve.open('attendees.db')[args['cid']] = args
+            return {'message': 'New attendee added', 'data': email}, 201
         else:
             return {'message': 'POST on /conferences/cid is for adding attendees only', 'data': {}}, 405
         
