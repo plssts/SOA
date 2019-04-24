@@ -11,10 +11,12 @@ class Conferences(Resource):
         if not (str(cid) in entries):
             return {'message': 'No such conference', 'data': {}}, 404
         
-        #if 'author' in request.args
-        return request.args
+        dataHash = entries[str(cid)]
+        
+        if 'embedded' in request.args:
+            dataHash['attendees'] = shelve.open('attendees.db')[str(cid)]
 
-        return {'message': 'Conference', 'data': entries[str(cid)]}, 200
+        return {'message': 'Conference', 'data': dataHash}, 200
         
     def put(self, cid):
         entries = database()
