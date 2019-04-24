@@ -1,23 +1,21 @@
 version: '2'
 services:
- web:
+ base:
   build: .
   command: python app.py
   ports:
    - 80:5000
   volumes:
    - .:/code
-  container_name: base
   networks:
     - ws_bridge
- web2:
+ usr:
   build: .
   command: python WebServices/Pirmas/app.py
   ports:
     - "5009:5009"
   volumes:
     - .:/code
-  container_name: usr
   networks:
     - ws_bridge
 
