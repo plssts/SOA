@@ -1,6 +1,7 @@
 from flask import Flask, g, request
 from flask_restful import Resource, reqparse
 import shelve
+import requests
 
 app = Flask(__name__)
 
