@@ -2,7 +2,7 @@ version: '2'
 services:
  base:
   build: .
-  command: bash -c "docker container rm base && docker container rm usr && python app.py"
+  command: python app.py
   ports:
    - 80:5000
   volumes:
