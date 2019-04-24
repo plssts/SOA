@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Stopping services"
-docker stop usr
-docker stop base
+docker stop usr_s
+docker stop base_s
 #echo "Removing user-based network bridge"
 #docker network rm ws_bridge
 echo "Clearing empty images"
