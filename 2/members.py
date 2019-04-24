@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 class Members(Resource):
     def get(self, email):
-        r = requests.get('http://usr:5009/users/' + email)
+        r = requests.get('http://usr_s:5009/users/' + email)
         
         # response loses its status somewhere, so
         # it is assembled manually
@@ -27,7 +27,7 @@ class Members(Resource):
         parser.add_argument('lastName', required=True)
         parser.add_argument('email', required=True)
         args = parser.parse_args()
-        r = requests.put('http://usr:5009/users/' + email, data=args)
+        r = requests.put('http://usr_s:5009/users/' + email, data=args)
         
         # response loses its status somewhere, so
         # it is assembled manually
@@ -47,7 +47,7 @@ class Members(Resource):
         parser.add_argument('lastName', required=False)
         parser.add_argument('email', required=False)
         args = parser.parse_args()
-        r = requests.patch('http://usr:5009/users/' + email, data=args)
+        r = requests.patch('http://usr_s:5009/users/' + email, data=args)
         
         # response loses its status somewhere, so
         # it is assembled manually
@@ -62,7 +62,7 @@ class Members(Resource):
         return resp
 
     def delete(self, email):
-        r = requests.delete('http://usr:5009/users/' + email)
+        r = requests.delete('http://usr_s:5009/users/' + email)
         
         # response loses its status somewhere, so
         # it is assembled manually
