@@ -8,8 +8,18 @@ services:
   volumes:
    - .:/code
   container_name: base
+  networks:
+    - ws_bridge
+ web2:
+  build: .
+  command: python WebServices/Pirmas/app.py
+  ports:
+    - "5009:5009"
+  volumes:
+    - .:/code
+  container_name: usr
+  networks:
+    - ws_bridge
 
 networks:
- default:
-  external:
-   name: ws_bridge
+  ws_bridge:
