@@ -20,7 +20,7 @@ def home():
 
 progInterface.add_resource(ConferencesList, '/conferences')
 progInterface.add_resource(Conferences, '/conferences/<int:cid>')
-progInterface.add_resource(ConferenceAttendees, '/conferences/<int:cid>/attendees')
+#progInterface.add_resource(ConferenceAttendees, '/conferences/<int:cid>/attendees')
 progInterface.add_resource(MembersList, '/members')
 progInterface.add_resource(Members, '/members/<string:email>')
 
