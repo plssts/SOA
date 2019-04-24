@@ -1,4 +1,4 @@
-from flask import Flask, g
+from flask import Flask, g, request
 from flask_restful import Resource, reqparse
 import shelve
 
@@ -10,6 +10,9 @@ class Conferences(Resource):
         
         if not (str(cid) in entries):
             return {'message': 'No such conference', 'data': {}}, 404
+        
+        #if 'author' in request.args
+        return request.args
 
         return {'message': 'Conference', 'data': entries[str(cid)]}, 200
         
