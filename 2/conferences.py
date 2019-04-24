@@ -79,6 +79,9 @@ class Conferences(Resource):
             if r.status_code == 404:
                 return {'message': 'No such member', 'data': args['email']}, 404
             
+            if not args['email'] in previous:
+                return {'message': 'This member is not attending the conference', 'data': args['email']}, 404
+            
             args['cid'] = str(cid)
             previous.remove(args['email'])
             args['attendees'] = previous
