@@ -68,6 +68,24 @@ class Conferences(Resource):
     def delete(self, cid):
         entries = database()
 
+        if 'embedded' in request.args:
+            previous = shelve.open('attendees.db')[str(cid)]['attendees']
+            
+            parser = reqparse.RequestParser()
+            parser.add_argument('email', required=True)
+            args = parser.parse_args()
+        
+            r = requests.get('http://usr:5009/users/' + args['email'])
+            if r.status_code == 404:
+                return {'message': 'No such member', 'data': args['email']}, 404
+            
+            args['cid'] = str(cid)
+            previous.remove(args['email'])
+            args['attendees'] = previous
+            email = args.pop('email', None)
+            shelve.open('attendees.db')[args['cid']] = args
+            return {'message': 'Attendee removed', 'data': email}, 200
+
         if not (str(cid) in entries):
             return {'message': 'No such conference', 'data': {}}, 404
         
