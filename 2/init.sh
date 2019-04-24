@@ -1,9 +1,9 @@
 #!/bin/bash
 tput cup 0 0
 tput ed
-cd WebServices/Pirmas
-cp users.db ../../
-cd ../..
+#cd WebServices/Pirmas
+#cp users.db ../../
+#cd ../..
 #echo -ne "\e[36mCreating a user-based network bridge\e[39m"
 docker network create ws_bridge
 #tput cup 0 36
