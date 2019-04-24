@@ -17,6 +17,31 @@ class Conferences(Resource):
             dataHash['attendees'] = shelve.open('attendees.db')[str(cid)]['attendees']
 
         return {'message': 'Conference', 'data': dataHash}, 200
+    
+    def post(self, cid):
+        entries = database()
+        
+        if not (str(cid) in entries):
+            return {'message': 'No such conference', 'data': {}}, 404
+        
+        if 'embedded' in request.args:
+            previous = shelve.open('attendees.db')[str(cid)]['attendees']
+            
+            parser = reqparse.RequestParser()
+            parser.add_argument('email', required=True)
+            args = parser.parse_args()
+        
+            if args['email'] in previous:
+                return {'message': 'This member is already participating', 'data': args['email']}, 409
+        
+            r = requests.get('http://usr:5009/users/' + args['email'])
+            if r.status_code == 404:
+                return {'message': 'No such member', 'data': args['email']}, 404
+            
+            previous.append(args['email'])
+            shelve.open('attendees.db')[str(cid)]['attendees'] = previous
+        else:
+            return {'message': 'Conference', 'data': dataHash}, 405
         
     def put(self, cid):
         entries = database()
