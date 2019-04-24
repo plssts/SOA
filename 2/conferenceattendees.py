@@ -28,7 +28,7 @@ class ConferenceAttendees(Resource):
         if args['email'] in previous:
             return {'message': 'This member is already participating', 'data': args['email']}, 409
         
-        r = requests.get('http://usr:5009/users/' + args['email'])
+        r = requests.get('http://usr_s:5009/users/' + args['email'])
         if r.status_code == 404:
             return {'message': 'No such member', 'data': args['email']}, 404
         
