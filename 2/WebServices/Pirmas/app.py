@@ -17,9 +17,10 @@ def index():
 
         return markdown.markdown(content)
 
-
-api.add_resource(UserList, '/users')
-api.add_resource(Users, '/users/<string:email>')
+# Conference users
+api.add_resource(UserList, '/<int:cid>/users')
+# Conference user by email
+api.add_resource(Users, '/<int:cid>/users/<string:email>')
 
 
 if __name__ == '__main__':
