@@ -3,7 +3,7 @@ from flask_restful import Api, Resource, reqparse
 from conferenceslist import ConferencesList
 from conferences import Conferences
 from conferenceattendees import ConferenceAttendees
-from conferenceattendeeslist import ConferenceAttendeesList
+#from conferenceattendeeslist import ConferenceAttendeesList
 from members import Members
 from memberslist import MembersList
 import os
