@@ -140,7 +140,7 @@ def fill_start():
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
-        db = g._database = shelve.open("users.db")
+        db = g._database = shelve.open("conferences.db")
     return db
 
 
