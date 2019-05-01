@@ -1,42 +1,39 @@
 import shelve
-import requests
 from flask import Flask, g
 from flask_restful import Resource, reqparse
 
 app = Flask(__name__)
 
-class UserList(Resource):
-    def get(self, cid):
-        entries = get_db()
-        
-        if not (str(cid) in entries):
-            return {'message': 'No such conference', 'data': {}}, 404
-        
-        return {'message': 'Conference members', 'data': entries[str(cid)]}, 200
 
-    def post(self, cid):
-        entries = get_conf_db()
-        
-        previous = entries[str(cid)]['attendees'] #if str(cid) in entries else []
-        
+class UserList(Resource):
+    def get(self):
+        shelf = get_db()
+        keys = list(shelf.keys())
+
+        users = []
+
+        for key in keys:
+            users.append(shelf[key])
+
+        return {'message': 'Success', 'data': users}, 200
+
+    def post(self):
         parser = reqparse.RequestParser()
+        shelf = get_db()
+        
         parser.add_argument('firstName', required=True)
         parser.add_argument('lastName', required=True)
         parser.add_argument('email', required=True)
+
+        # Parser arguments into obj
         args = parser.parse_args()
-        
-        if args['email'] in previous:
-            return {'message': 'This member is already participating', 'data': args['email']}, 409
 
-        # Appending email to the conference
-        previous.append(args['email'])
-        entries[str(cid)]['attendees'] = previous
+        if args['email'] in shelf:
+            return {'message': 'Email Already Exists', 'data': {}}, 409
         
-        # Creating a new attendee
-        members = get_db()
-        members[str(cid)][args['email']] = args
+        shelf[args['email']] = args
 
-        return {'message': 'New attendee added', 'data': args['email']}, 201
+        return {'message': 'User created', 'data': args}, 201, {'Location': '/users/' + args['email']}
 
 
 class Users(Resource):
@@ -118,24 +115,37 @@ class Users(Resource):
         return '', 204
 
 
+def fill_start():
+    shelf = get_db()
+    test_user1 = \
+        {
+            'firstName': 'Seras',
+            'lastName': 'Meras',
+            'email': 'eskaferas@gmail.com'
+        }
+    test_user2 = \
+        {
+            'firstName': 'Oras',
+            'lastName': 'Moras',
+            'email': 'Soras@gmail.com'
+        }
+
+    if test_user1['email'] in shelf:
+        return
+
+    shelf[test_user1['email']] = test_user1
+    shelf[test_user2['email']] = test_user2
+
+
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
-        db = g._database = shelve.open("attendees.db")
-    return db
-
-def get_conf_db():
-    db = getattr(g, '_database_conferences', None)
-    if db is None:
-        db = g._database_conferences = shelve.open("conferences.db")
+        db = g._database = shelve.open("users.db")
     return db
 
 
 @app.teardown_appcontext
 def teardown_db(exception):
     db = getattr(g, '_database', None)
-    if db is not None:
-        db.close()
-    db = getattr(g, '_database_conferences', None)
     if db is not None:
         db.close()

@@ -32,9 +32,6 @@ class ConferencesList(Resource):
         
         args['cid'] = CID
         entries[args['cid']] = args
-        
-        # Assigning an empty list as members
-        shelve.open('attendees.db')[CID] = [CID]
 
         return {'message': 'New conference created', 'data': entries[CID]}, 201
 
