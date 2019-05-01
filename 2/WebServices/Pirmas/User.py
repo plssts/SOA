@@ -1,21 +1,18 @@
 import shelve
+import requests
 from flask import Flask, g
 from flask_restful import Resource, reqparse
 
 app = Flask(__name__)
 
-
 class UserList(Resource):
-    def get(self):
-        shelf = get_db()
-        keys = list(shelf.keys())
+    def get(self, cid):
+        entries = get_db()
+        
+        if not (str(cid) in entries):
+            return {'message': 'No members as of yet', 'data': {}}, 404
 
-        users = []
-
-        for key in keys:
-            users.append(shelf[key])
-
-        return {'message': 'Success', 'data': users}, 200
+        return {'message': 'Conference members', 'data': entries[str(cid)]}, 200
 
     def post(self):
         parser = reqparse.RequestParser()
