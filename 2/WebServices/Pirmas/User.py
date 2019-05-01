@@ -12,15 +12,12 @@ class UserList(Resource):
         if not (str(cid) in entries):
             return {'message': 'No such conference', 'data': {}}, 404
         
-        return {'message': entries[str(cid)]}, 200
-
-        keys = list(entries[str(cid)].keys())
         return {'message': 'Conference members', 'data': entries[str(cid)]}, 200
 
     def post(self, cid):
-        entries = get_db()
+        entries = get_conf_db()
         
-        previous = list(entries[str(cid)].keys()) if str(cid) in entries else []
+        previous = entries[str(cid)]['attendees'] #if str(cid) in entries else []
         
         parser = reqparse.RequestParser()
         parser.add_argument('firstName', required=True)
@@ -31,8 +28,13 @@ class UserList(Resource):
         if args['email'] in previous:
             return {'message': 'This member is already participating', 'data': args['email']}, 409
 
-        return {'message': entries[str(cid)]}, 201
-        entries[str(cid)][args['email']] = args
+        # Appending email to the conference
+        previous.append(args['email'])
+        entries[str(cid)]['attendees'] = previous
+        
+        # Creating a new attendee
+        members = get_db()
+        members[str(cid)][args['email']] = args
 
         return {'message': 'New attendee added', 'data': args['email']}, 201
 
@@ -116,37 +118,24 @@ class Users(Resource):
         return '', 204
 
 
-def fill_start():
-    shelf = get_db()
-    test_user1 = \
-        {
-            'firstName': 'Seras',
-            'lastName': 'Meras',
-            'email': 'eskaferas@gmail.com'
-        }
-    test_user2 = \
-        {
-            'firstName': 'Oras',
-            'lastName': 'Moras',
-            'email': 'Soras@gmail.com'
-        }
-
-    if test_user1['email'] in shelf:
-        return
-
-    shelf[test_user1['email']] = test_user1
-    shelf[test_user2['email']] = test_user2
-
-
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
         db = g._database = shelve.open("attendees.db")
     return db
 
+def get_conf_db():
+    db = getattr(g, '_database_conferences', None)
+    if db is None:
+        db = g._database_conferences = shelve.open("conferences.db")
+    return db
+
 
 @app.teardown_appcontext
 def teardown_db(exception):
     db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
+    db = getattr(g, '_database_conferences', None)
     if db is not None:
         db.close()
