@@ -10,7 +10,7 @@ class UserList(Resource):
         entries = get_db()
         
         if not (str(cid) in entries):
-            return {'message': 'No members as of yet', 'data': {}}, 404
+            return {'message': 'No such conference', 'data': {}}, 404
 
         keys = list(entries[str(cid)].keys())
         return {'message': 'Conference members', 'data': entries[str(cid)]}, 200
