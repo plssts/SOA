@@ -6,7 +6,6 @@ from User import Users, UserList, fill_start
 app = Flask(__name__)
 api = Api(app)
 
-
 @app.route('/')
 def index():
     """Api documentation"""
