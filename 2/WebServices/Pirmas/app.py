@@ -10,7 +10,7 @@ api = Api(app)
 @app.route('/')
 def index():
     """Api documentation"""
-    fill_start()
+    #fill_start()
     with open('README.md', 'r') as markdown_file:
         # Read file and convert it to HTML
         content = markdown_file.read()
