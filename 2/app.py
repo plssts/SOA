@@ -3,6 +3,7 @@ from flask_restful import Api, Resource, reqparse
 from conferenceslist import ConferencesList
 from conferences import Conferences
 from conferenceattendees import ConferenceAttendees
+from conferenceattendeeslist import ConferenceAttendeesList
 from members import Members
 from memberslist import MembersList
 import os
@@ -20,9 +21,10 @@ def home():
 
 progInterface.add_resource(ConferencesList, '/conferences')
 progInterface.add_resource(Conferences, '/conferences/<int:cid>')
-#progInterface.add_resource(ConferenceAttendees, '/conferences/<int:cid>/attendees')
-progInterface.add_resource(MembersList, '/members')
-progInterface.add_resource(Members, '/members/<string:email>')
+progInterface.add_resource(ConferenceAttendeesList, '/conferences/<int:cid>/attendees')
+progInterface.add_resource(ConferenceAttendees, '/conferences/<int:cid>/attendees/<string:email>')
+#progInterface.add_resource(MembersList, '/members')
+#progInterface.add_resource(Members, '/members/<string:email>')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
