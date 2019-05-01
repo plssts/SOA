@@ -30,7 +30,6 @@ class UserList(Resource):
         if args['email'] in previous:
             return {'message': 'This member is already participating', 'data': args['email']}, 409
 
-        args['cid'] = str(cid)
         entries[str(cid)][args['email']] = args
 
         return {'message': 'New attendee added', 'data': args['email']}, 201
