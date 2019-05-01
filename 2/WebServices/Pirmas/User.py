@@ -11,6 +11,8 @@ class UserList(Resource):
         
         if not (str(cid) in entries):
             return {'message': 'No such conference', 'data': {}}, 404
+        
+        return {'message': entries[str(cid)]}, 200
 
         keys = list(entries[str(cid)].keys())
         return {'message': 'Conference members', 'data': entries[str(cid)]}, 200
