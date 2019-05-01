@@ -11,14 +11,14 @@ class MembersList(Resource):
         r = requests.get('http://usr_s:5009/' + str(cid) + '/users')
         return r.json()
         
-    def post(self):
+    def post(self, cid):
         parser = reqparse.RequestParser()
         parser.add_argument('firstName', required=True)
         parser.add_argument('lastName', required=True)
         parser.add_argument('email', required=True)
         args = parser.parse_args()
         
-        r = requests.post('http://usr_s:5009/users', data=args)
+        r = requests.post('http://usr_s:5009/' + str(cid) +'/users', data=args)
         
         # response loses its status somewhere, so
         # it is assembled manually
