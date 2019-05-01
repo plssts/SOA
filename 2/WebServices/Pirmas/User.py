@@ -14,23 +14,33 @@ class UserList(Resource):
 
         return {'message': 'Conference members', 'data': entries[str(cid)]}, 200
 
-    def post(self):
+    def post(self, cid):
+        entries = get_db()
+
+        #email = request.values.get('email')
+        
+        previous = entries[str(cid)]['attendees'] if str(cid) in entries else []
+        
         parser = reqparse.RequestParser()
-        shelf = get_db()
-        
-        parser.add_argument('firstName', required=True)
-        parser.add_argument('lastName', required=True)
         parser.add_argument('email', required=True)
-
-        # Parser arguments into obj
         args = parser.parse_args()
-
-        if args['email'] in shelf:
-            return {'message': 'Email Already Exists', 'data': {}}, 409
         
-        shelf[args['email']] = args
+        if args['email'] in previous:
+            return {'message': 'This member is already participating', 'data': args['email']}, 409
+        
+        r = requests.get('http://usr_s:5009/users/' + args['email'])
+        if r.status_code == 404:
+            return {'message': 'No such member', 'data': args['email']}, 404
+        
+        # args = {'cid': '', 'attendees': []}
+        args['cid'] = str(cid)
+        
+        previous.append(args['email'])
+        args['attendees'] = previous
+        email = args.pop('email', None)
+        entries[args['cid']] = args
 
-        return {'message': 'User created', 'data': args}, 201, {'Location': '/users/' + args['email']}
+        return {'message': 'New attendee added', 'data': email}, 201
 
 
 class Users(Resource):
