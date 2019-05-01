@@ -30,6 +30,7 @@ class UserList(Resource):
             return {'message': 'This member is already participating', 'data': args['email']}, 409
 
         entries[str(cid)][args['email']] = args
+        return {'message': 'reached before return'}
 
         return {'message': 'New attendee added', 'data': args['email']}, 201
 
