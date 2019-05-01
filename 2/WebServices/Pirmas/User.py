@@ -22,6 +22,8 @@ class UserList(Resource):
         previous = entries[str(cid)]['attendees'] if str(cid) in entries else []
         
         parser = reqparse.RequestParser()
+        parser.add_argument('firstName', required=True)
+        parser.add_argument('lastName', required=True)
         parser.add_argument('email', required=True)
         args = parser.parse_args()
         
