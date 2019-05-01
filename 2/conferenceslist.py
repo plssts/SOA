@@ -45,7 +45,6 @@ def database():
 # duombazes panaikinimas
 @app.teardown_appcontext
 def teardown_db():
-    db = g.pop('db', None)
-
+    db = getattr(g, '_database', None)
     if db is not None:
         db.close()
