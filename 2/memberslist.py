@@ -7,8 +7,8 @@ import requests
 app = Flask(__name__)
 
 class MembersList(Resource):
-    def get(self):
-        r = requests.get('http://usr_s:5009/users')
+    def get(self, cid):
+        r = requests.get('http://usr_s:5009/' + str(cid) + '/users')
         return r.json()
         
     def post(self):
