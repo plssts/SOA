@@ -19,7 +19,6 @@ class UserList(Resource):
         entries = get_db()
         
         previous = list(entries[str(cid)].keys()) if str(cid) in entries else []
-        return {'message': previous}
         
         parser = reqparse.RequestParser()
         parser.add_argument('firstName', required=True)
