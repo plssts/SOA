@@ -37,10 +37,10 @@ class ConferencesList(Resource):
 
 # duombazes uzkrovimas
 def database():
-    if 'db' not in g:
-        g.db = shelve.open('conferences.db')
-
-    return g.db
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = shelve.open("conferences.db")
+    return db
 
 # duombazes panaikinimas
 @app.teardown_appcontext
