@@ -12,14 +12,13 @@ class UserList(Resource):
         if not (str(cid) in entries):
             return {'message': 'No members as of yet', 'data': {}}, 404
 
+        keys = list(entries[str(cid)].keys())
         return {'message': 'Conference members', 'data': entries[str(cid)]}, 200
 
     def post(self, cid):
         entries = get_db()
-
-        #email = request.values.get('email')
         
-        previous = entries[str(cid)]['attendees'] if str(cid) in entries else []
+        previous = list(entries[str(cid)].keys()) if str(cid) in entries else []
         
         parser = reqparse.RequestParser()
         parser.add_argument('firstName', required=True)
@@ -31,13 +30,9 @@ class UserList(Resource):
             return {'message': 'This member is already participating', 'data': args['email']}, 409
 
         args['cid'] = str(cid)
-        
-        previous.append(args['email'])
-        args['attendees'] = previous
-        email = args.pop('email', None)
-        entries[args['cid']] = args
+        entries[str(cid)][args['email']] = args
 
-        return {'message': 'New attendee added', 'data': email}, 201
+        return {'message': 'New attendee added', 'data': args['email']}, 201
 
 
 class Users(Resource):
