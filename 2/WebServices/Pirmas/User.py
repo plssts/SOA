@@ -127,7 +127,7 @@ class Users(Resource):
         del newHash[email]
         shelf[str(cid)] = newHash
         
-        if newHash is None:
+        if not newHash:
             del shelf[str(cid)]
 
         return '', 204
