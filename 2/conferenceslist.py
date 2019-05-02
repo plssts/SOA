@@ -1,6 +1,7 @@
 from flask import Flask, g
 from flask_restful import Resource, reqparse
 import shelve
+import requests
 
 app = Flask(__name__)
 
@@ -9,7 +10,13 @@ class ConferencesList(Resource):
         entries = database()
         elements = list(entries.keys())
         
-        conferences = [entries[e] for e in elements]
+        conferences = []
+        for e in elements:
+            dataHash = entries[e]
+            r = requests.get('http://usr_s:5009/' + str(e) + '/users')
+            if not r.json()['message'] == 'No members as of yet':
+                dataHash['attendees'] = r.json()['data']
+            conferences.append(dataHash)
 
         return {'message': 'Conferences', 'data': conferences}, 200
         
