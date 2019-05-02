@@ -25,4 +25,7 @@ progInterface.add_resource(MembersList, '/conferences/<int:cid>/attendees')
 progInterface.add_resource(Members, '/conferences/<int:cid>/attendees/<string:email>')
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True)
+    try:
+        app.run(host="0.0.0.0", debug=True)
+    except:
+        return
