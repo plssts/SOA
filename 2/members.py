@@ -8,8 +8,8 @@ import json
 app = Flask(__name__)
 
 class Members(Resource):
-    def get(self, email):
-        r = requests.get('http://usr_s:5009/users/' + email)
+    def get(self, cid, email):
+        r = requests.get('http://usr_s:5009/' + str(cid) + '/users/' + email)
         
         # response loses its status somewhere, so
         # it is assembled manually
