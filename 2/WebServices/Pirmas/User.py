@@ -29,6 +29,7 @@ class UserList(Resource):
         if args['email'] in shelf[str(cid)]:
             return {'message': 'Email Already Exists', 'data': {}}, 409
     
+        return {'message': args}, 200
         previous[args['email']] = args
         return {'message': previous}, 200
         shelf[str(cid)] = previous
