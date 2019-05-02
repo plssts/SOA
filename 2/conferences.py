@@ -13,9 +13,12 @@ class Conferences(Resource):
             return {'message': 'No such conference', 'data': {}}, 404
         
         dataHash = entries[str(cid)]
-        
-        if 'embedded' in request.args:
-            dataHash['attendees'] = shelve.open('attendees.db')[str(cid)]['attendees']
+        r = requests.get('http://usr_s:5009/' + str(cid) + '/users')
+        if not r.json()['message'] == 'No members as of yet':
+            if 'embedded' in request.args and request.args['embedded'] == 'attendees':
+                dataHash['attendees'] = [r.json()['data'][key] for key in list(r.json()['data'].keys())]
+            else:
+                dataHash['attendees'] = [key for key in list(r.json()['data'].keys())]
 
         return {'message': 'Conference', 'data': dataHash}, 200
     
