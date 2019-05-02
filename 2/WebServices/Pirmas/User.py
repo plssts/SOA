@@ -31,6 +31,8 @@ class UserList(Resource):
         
         args['email'] = args
         previous.append(args)
+        return {'message': previous}, 200
+    
         shelf[str(cid)] = previous
         #shelf[args['email']] = args
 
