@@ -21,8 +21,8 @@ def home():
 progInterface.add_resource(ConferencesList, '/conferences')
 progInterface.add_resource(Conferences, '/conferences/<int:cid>')
 #progInterface.add_resource(ConferenceAttendees, '/conferences/<int:cid>/attendees')
-progInterface.add_resource(MembersList, '/members')
-progInterface.add_resource(Members, '/members/<string:email>')
+progInterface.add_resource(MembersList, '/conferences/<int:cid>/attendees')
+progInterface.add_resource(Members, '/conferences/<int:cid>/attendees/<string:email>')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
