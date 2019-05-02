@@ -17,6 +17,7 @@ class UserList(Resource):
         shelf = get_mem()
         
         previous = entries[str(cid)] if str(cid) in entries else []
+        return {'message': previous}, 200
         
         parser = reqparse.RequestParser()
         parser.add_argument('firstName', required=True)
@@ -25,7 +26,6 @@ class UserList(Resource):
 
         # Parser arguments into obj
         args = parser.parse_args()
-        return {'message': args}, 200
 
         if args['email'] in shelf[str(cid)]:
             return {'message': 'Email Already Exists', 'data': {}}, 409
