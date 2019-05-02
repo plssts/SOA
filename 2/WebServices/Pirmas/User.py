@@ -16,7 +16,7 @@ class UserList(Resource):
     def post(self, cid):
         shelf = get_mem()
         
-        previous = shelf[str(cid)] if str(cid) in shelf else []
+        previous = shelf[str(cid)] if str(cid) in shelf else {}
         
         parser = reqparse.RequestParser()
         parser.add_argument('firstName', required=True)
@@ -32,7 +32,7 @@ class UserList(Resource):
         #return {'message': args}, 200
         #args['email'] = args
     
-        previous.append(args)
+        previous[args['email']] = args
         return {'message': previous}, 200
         shelf[str(cid)] = previous
         #shelf[args['email']] = args
