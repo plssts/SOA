@@ -38,15 +38,15 @@ class UserList(Resource):
 
 
 class Users(Resource):
-    def get(self, email):
-        shelf = get_db()
+    def get(self, cid, email):
+        shelf = get_mem()
 
-        if not (email in shelf):
+        if not (email in shelf[str(cid)]):
             return {'message': 'User not found', 'data': {}}, 404
 
-        return {'message': 'User', 'data': shelf[email]}, 200
+        return {'message': 'User', 'data': shelf[str(cid)][email]}, 200
 
-    def put(self, email):
+    def put(self, cid, email):
         shelf = get_db()
 
         if not (email in shelf):
@@ -69,7 +69,7 @@ class Users(Resource):
 
         return {'message': 'User updated successfully', 'data': args}, 202
 
-    def patch(self, email):
+    def patch(self, cid, email):
         parser = reqparse.RequestParser()
         shelf = get_db()
 
@@ -105,7 +105,7 @@ class Users(Resource):
         return {'message': 'User updated successfully', 'data': user}, 202, {'Location': '/users/' + email}
         # EDIT: at 104 args['email'] replaced by email
 
-    def delete(self, email):
+    def delete(self, cid, email):
         shelf = get_db()
 
         if not (email in shelf):
