@@ -21,13 +21,13 @@ class Members(Resource):
         
         return resp
         
-    def put(self, email):
+    def put(self, cid, email):
         parser = reqparse.RequestParser()
         parser.add_argument('firstName', required=True)
         parser.add_argument('lastName', required=True)
         parser.add_argument('email', required=True)
         args = parser.parse_args()
-        r = requests.put('http://usr_s:5009/users/' + email, data=args)
+        r = requests.put('http://usr_s:5009/' + str(cid) + '/users/' + email, data=args)
         
         # response loses its status somewhere, so
         # it is assembled manually
@@ -41,13 +41,13 @@ class Members(Resource):
         
         return resp
 
-    def patch(self, email):
+    def patch(self, cid, email):
         parser = reqparse.RequestParser()
         parser.add_argument('firstName', required=False)
         parser.add_argument('lastName', required=False)
         parser.add_argument('email', required=False)
         args = parser.parse_args()
-        r = requests.patch('http://usr_s:5009/users/' + email, data=args)
+        r = requests.patch('http://usr_s:5009/' + str(cid) + '/users/' + email, data=args)
         
         # response loses its status somewhere, so
         # it is assembled manually
@@ -61,8 +61,8 @@ class Members(Resource):
         
         return resp
 
-    def delete(self, email):
-        r = requests.delete('http://usr_s:5009/users/' + email)
+    def delete(self, cid, email):
+        r = requests.delete('http://usr_s:5009/' + str(cid) + '/users/' + email)
         
         # response loses its status somewhere, so
         # it is assembled manually
