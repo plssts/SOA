@@ -111,7 +111,8 @@ class Users(Resource):
         if not (email in shelf[str(cid)]):
             return {'message': 'User not found', 'data': {}}, 404
 
-        shelf[str(cid)].pop(email, None)
+        newHash = shelf[str(cid)].pop(email, None)
+        shelf[str(cid)] = newHash
 
         return '', 204
 
