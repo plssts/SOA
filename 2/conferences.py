@@ -45,6 +45,11 @@ class Conferences(Resource):
         if not (str(cid) in entries):
             return {'message': 'No such conference', 'data': {}}, 404
         
+        r = requests.get('http://usr_s:5009/' + str(cid) + '/users')
+        if not r.json()['message'] == 'No members as of yet':
+            for key in list(r.json()['data'].keys()):
+                requests.delete('http://usr_s:5009/' + str(cid) + '/users/' + key)
+        
         del entries[str(cid)]
 
         return {'message': 'Conference removed', 'data': str(cid)}, 200
