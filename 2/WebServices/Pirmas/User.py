@@ -47,9 +47,9 @@ class Users(Resource):
         return {'message': 'User', 'data': shelf[str(cid)][email]}, 200
 
     def put(self, cid, email):
-        shelf = get_db()
+        shelf = get_mem()
 
-        if not (email in shelf):
+        if not (email in shelf[str(cid)]):
             return {'message': 'User not found', 'data': {}}, 404
 
         parser = reqparse.RequestParser()
@@ -61,28 +61,28 @@ class Users(Resource):
         # Parser arguments into obj
         args = parser.parse_args()
 
-        if (args['email'] in shelf) and (args['email'] != email):
+        if (args['email'] in shelf[str(cid)]) and (args['email'] != email):
             return {'message': 'Email Already Exists', 'data': {}}, 409
 
-        del shelf[email]
-        shelf[args['email']] = args
+        del shelf[str(cid)][email]
+        shelf[str(cid)][args['email']] = args
 
         return {'message': 'User updated successfully', 'data': args}, 202
 
     def patch(self, cid, email):
-        parser = reqparse.RequestParser()
-        shelf = get_db()
+        shelf = get_mem()
 
-        if not (email in shelf):
+        if not (email in shelf[str(cid)]):
             return {'message': 'User not found', 'data': {}}, 404
 
+        parser = reqparse.RequestParser()
         parser.add_argument('firstName', required=False)
         parser.add_argument('lastName', required=False)
         parser.add_argument('email', required=False)
 
         args = parser.parse_args()
 
-        user = shelf[email]
+        user = shelf[str(cid)][email]
 
         if not (args['firstName'] is None):
             user['firstName'] = args['firstName']
@@ -92,26 +92,26 @@ class Users(Resource):
 
         if not (args['email'] is None):
             user['email'] = args['email']
-            if args['email'] in shelf:
+            if args['email'] in shelf[str(cid)]:
                 return {'message': 'Email Already Exists', 'data': {}}, 409
 
-        del shelf[email]
+        del shelf[str(cid)][email]
 
         if not (args['email'] is None):
-            shelf[args['email']] = user
+            shelf[str(cid)][args['email']] = user
         else:
-            shelf[email] = user
+            shelf[str(cid)][email] = user
 
         return {'message': 'User updated successfully', 'data': user}, 202, {'Location': '/users/' + email}
         # EDIT: at 104 args['email'] replaced by email
 
     def delete(self, cid, email):
-        shelf = get_db()
+        shelf = get_mem()
 
-        if not (email in shelf):
+        if not (email in shelf[str(cid)]):
             return {'message': 'User not found', 'data': {}}, 404
 
-        del shelf[email]
+        del shelf[str(cid)][email]
 
         return '', 204
 
