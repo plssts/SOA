@@ -10,7 +10,7 @@ api = Api(app)
 @app.route('/')
 def index():
     """Api documentation"""
-    fill_start()
+    #fill_start()
     with open('README.md', 'r') as markdown_file:
         # Read file and convert it to HTML
         content = markdown_file.read()
@@ -18,8 +18,10 @@ def index():
         return markdown.markdown(content)
 
 
-api.add_resource(UserList, '/users')
-api.add_resource(Users, '/users/<string:email>')
+# Conference attendees
+api.add_resource(UserList, '/<int:cid>/users')
+# Specific person
+api.add_resource(Users, '/<int:cid>/users/<string:email>')
 
 
 if __name__ == '__main__':
