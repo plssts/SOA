@@ -30,7 +30,7 @@ class UserList(Resource):
             return {'message': 'Email Already Exists', 'data': {}}, 409
     
         previous[args['email']] = args
-        return {'message': previous}, 200
+        #return {'message': previous}, 200
         shelf[str(cid)] = previous
         #shelf[args['email']] = args
 
