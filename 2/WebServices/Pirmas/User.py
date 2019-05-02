@@ -6,24 +6,17 @@ app = Flask(__name__)
 
 class UserList(Resource):
     def get(self, cid):
-        shelf = get_db()
+        shelf = get_mem()
         
         if not (str(cid) in shelf):
             return {'message': 'No members as of yet', 'data': {}}, 404
 
-        keys = list(shelf[str(cid)]['attendees'].keys())
-
-        users = []
-
-        for key in keys:
-            users.append(shelf[str(cid)]['attendees'][key])
-
-        return {'message': 'Attendees', 'data': users}, 200
+        return {'message': 'Attendees', 'data': shelf[str(cid)]}, 200
 
     def post(self, cid):
-        shelf = get_db()
+        shelf = get_mem()
         
-        previous = entries[str(cid)]['attendees'] if str(cid) in entries else []
+        previous = entries[str(cid)] if str(cid) in entries else []
         
         parser = reqparse.RequestParser()
         parser.add_argument('firstName', required=True)
@@ -33,11 +26,11 @@ class UserList(Resource):
         # Parser arguments into obj
         args = parser.parse_args()
 
-        if args['email'] in shelf[str(cid)]['attendees']:
+        if args['email'] in shelf[str(cid)]:
             return {'message': 'Email Already Exists', 'data': {}}, 409
         
-        previous.append(args['email'])
-        shelf[str(cid)]['attendees'] = previous
+        previous.append(args)
+        shelf[str(cid)] = previous
         #shelf[args['email']] = args
 
         return {'message': 'User created', 'data': args}, 201, {'Location': '/users/' + args['email']}
@@ -150,9 +143,18 @@ def get_db():
         db = g._database = shelve.open("conferences.db")
     return db
 
+def get_mem():
+    db = getattr(g, '_members', None)
+    if db is None:
+        db = g._database = shelve.open("attendees.db")
+    return db
+
 
 @app.teardown_appcontext
 def teardown_db(exception):
     db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
+    db = getattr(g, '_members', None)
     if db is not None:
         db.close()
