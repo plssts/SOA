@@ -1,4 +1,4 @@
-from flask import Flask, g
+from flask import Flask, g, request
 from flask_restful import Resource, reqparse
 import shelve
 import requests
@@ -15,7 +15,10 @@ class ConferencesList(Resource):
             dataHash = entries[e]
             r = requests.get('http://usr_s:5009/' + str(e) + '/users')
             if not r.json()['message'] == 'No members as of yet':
-                dataHash['attendees'] = [r.json()['data'][key] for key in list(r.json()['data'].keys())]
+                if 'embedded' in request.args and request.args['embedded'] == 'attendees':
+                    dataHash['attendees'] = [r.json()['data'][key] for key in list(r.json()['data'].keys())]
+                else:
+                    dataHash['attendees'] = [key for key in list(r.json()['data'].keys())]
             conferences.append(dataHash)
 
         return {'message': 'Conferences', 'data': conferences}, 200
