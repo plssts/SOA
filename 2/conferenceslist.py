@@ -21,7 +21,6 @@ class ConferencesList(Resource):
         parser.add_argument('date', required=True)
 
         args = parser.parse_args()
-        args['attendees'] = []
         
         CID = ''                        # used as a new id
         entries = database()
