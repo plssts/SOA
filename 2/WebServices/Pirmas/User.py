@@ -25,9 +25,9 @@ class UserList(Resource):
 
         # Parser arguments into obj
         args = parser.parse_args()
-        return {'message': args}, 200
+        #return {'message': args}, 200
 
-        if args['email'] in shelf[str(cid)]:
+        if args['email'] in shelf.get(str(cid), None):
             return {'message': 'Email Already Exists', 'data': {}}, 409
     
         return {'message': args}, 200
