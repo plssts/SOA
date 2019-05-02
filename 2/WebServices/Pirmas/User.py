@@ -17,6 +17,7 @@ class UserList(Resource):
         shelf = get_mem()
         
         previous = shelf[str(cid)] if str(cid) in shelf else {}
+        return {'message': previous}, 200
         
         parser = reqparse.RequestParser()
         parser.add_argument('firstName', required=True)
