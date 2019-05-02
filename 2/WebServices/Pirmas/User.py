@@ -14,10 +14,10 @@ class UserList(Resource):
         return {'message': 'Attendees', 'data': shelf[str(cid)]}, 200
 
     def post(self, cid):
+        return {'message': {}}, 200
         shelf = get_mem()
         
         previous = entries[str(cid)] if str(cid) in entries else []
-        return {'message': previous}, 200
         
         parser = reqparse.RequestParser()
         parser.add_argument('firstName', required=True)
