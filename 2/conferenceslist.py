@@ -15,7 +15,7 @@ class ConferencesList(Resource):
             dataHash = entries[e]
             r = requests.get('http://usr_s:5009/' + str(e) + '/users')
             if not r.json()['message'] == 'No members as of yet':
-                dataHash['attendees'] = r.json()['data']
+                dataHash['attendees'] = [r.json()['data'][key] for key in list(r.json()['data'].keys()]
             conferences.append(dataHash)
 
         return {'message': 'Conferences', 'data': conferences}, 200
