@@ -40,6 +40,9 @@ class UserList(Resource):
 class Users(Resource):
     def get(self, cid, email):
         shelf = get_mem()
+        
+        if not (str(cid) in shelf):
+            return {'message': 'No such conference', 'data': {}}, 404
 
         if not (email in shelf[str(cid)]):
             return {'message': 'User not found', 'data': {}}, 404
@@ -48,6 +51,9 @@ class Users(Resource):
 
     def put(self, cid, email):
         shelf = get_mem()
+        
+        if not (str(cid) in shelf):
+            return {'message': 'No such conference', 'data': {}}, 404
 
         if not (email in shelf[str(cid)]):
             return {'message': 'User not found', 'data': {}}, 404
@@ -71,6 +77,9 @@ class Users(Resource):
 
     def patch(self, cid, email):
         shelf = get_mem()
+        
+        if not (str(cid) in shelf):
+            return {'message': 'No such conference', 'data': {}}, 404
 
         if not (email in shelf[str(cid)]):
             return {'message': 'User not found', 'data': {}}, 404
@@ -107,6 +116,9 @@ class Users(Resource):
 
     def delete(self, cid, email):
         shelf = get_mem()
+        
+        if not (str(cid) in shelf):
+            return {'message': 'No such conference', 'data': {}}, 404
 
         if not (email in shelf[str(cid)]):
             return {'message': 'User not found', 'data': {}}, 404
