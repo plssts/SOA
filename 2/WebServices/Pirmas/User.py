@@ -100,6 +100,7 @@ class Users(Resource):
         args = parser.parse_args()
 
         user = shelf[str(cid)][email]
+        previous = shelf[str(cid)]
 
         if not (args['firstName'] is None):
             user['firstName'] = args['firstName']
@@ -112,15 +113,19 @@ class Users(Resource):
             if args['email'] in shelf[str(cid)]:
                 return {'message': 'Email Already Exists', 'data': {}}, 409
 
-        del shelf[str(cid)][email]
-
+        #del shelf[str(cid)][email]
+        
         if not (args['email'] is None):
-            shelf[str(cid)][args['email']] = user
+            #shelf[str(cid)][args['email']] = user
+            del previous[email]
+            previous[args['email']] = user
         else:
-            shelf[str(cid)][email] = user
+            #shelf[str(cid)][email] = user
+            previous[email] = user
+            
+        shelf[str(cid)] = previous
 
         return {'message': 'User updated successfully', 'data': user}, 202, {'Location': '/users/' + email}
-        # EDIT: at 104 args['email'] replaced by email
 
     def delete(self, cid, email):
         shelf = get_mem()
