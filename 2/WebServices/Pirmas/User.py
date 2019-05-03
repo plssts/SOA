@@ -59,7 +59,6 @@ class Users(Resource):
             return {'message': 'User not found', 'data': {}}, 404
 
         parser = reqparse.RequestParser()
-
         parser.add_argument('firstName', required=True)
         parser.add_argument('lastName', required=True)
         parser.add_argument('email', required=True)
@@ -71,7 +70,8 @@ class Users(Resource):
             return {'message': 'Email Already Exists', 'data': {}}, 409
 
         #del shelf[str(cid)][email]
-        shelf[str(cid)].pop(email, None)
+        newHash = shelf[str(cid)]
+        del newHash[email]
         shelf[str(cid)][args['email']] = args
 
         return {'message': 'User updated successfully', 'data': args}, 202
