@@ -9,12 +9,16 @@ app = Flask(__name__)
 
 class Members(Resource):
     def get(self, cid, email):
+        entries = database()
+        if not (str(cid) in entries):
+            return {'message': 'No such conference', 'data': {}}, 404
+        
         r = requests.get('http://usr_s:5009/' + str(cid) + '/users/' + email)
         
         # response loses its status somewhere, so
         # it is assembled manually
         resp = Response(str(r.json()).replace("'", '"'))
-        if r.json()['message'] == 'User not found':
+        if r.json()['message'] == 'Attendee not found':
             resp.status_code = 404
         else:
             resp.status_code = 200
@@ -22,6 +26,10 @@ class Members(Resource):
         return resp
         
     def put(self, cid, email):
+        entries = database()
+        if not (str(cid) in entries):
+            return {'message': 'No such conference', 'data': {}}, 404
+        
         parser = reqparse.RequestParser()
         parser.add_argument('firstName', required=True)
         parser.add_argument('lastName', required=True)
@@ -32,7 +40,7 @@ class Members(Resource):
         # response loses its status somewhere, so
         # it is assembled manually
         resp = Response(str(r.json()).replace("'", '"'))
-        if r.json()['message'] == 'User not found':
+        if r.json()['message'] == 'Attendee not found' or r.json()['message'] == 'No attendees':
             resp.status_code = 404
         elif r.json()['message'] == 'Email Already Exists':
             resp.status_code = 409
@@ -42,6 +50,10 @@ class Members(Resource):
         return resp
 
     def patch(self, cid, email):
+        entries = database()
+        if not (str(cid) in entries):
+            return {'message': 'No such conference', 'data': {}}, 404
+        
         parser = reqparse.RequestParser()
         parser.add_argument('firstName', required=False)
         parser.add_argument('lastName', required=False)
@@ -52,7 +64,7 @@ class Members(Resource):
         # response loses its status somewhere, so
         # it is assembled manually
         resp = Response(str(r.json()).replace("'", '"'))
-        if r.json()['message'] == 'User not found':
+        if r.json()['message'] == 'Attendee not found' or r.json()['message'] == 'No attendees':
             resp.status_code = 404
         elif r.json()['message'] == 'Email Already Exists':
             resp.status_code = 409
@@ -62,6 +74,10 @@ class Members(Resource):
         return resp
 
     def delete(self, cid, email):
+        entries = database()
+        if not (str(cid) in entries):
+            return {'message': 'No such conference', 'data': {}}, 404
+        
         r = requests.delete('http://usr_s:5009/' + str(cid) + '/users/' + email)
         
         # response loses its status somewhere, so
@@ -73,4 +89,16 @@ class Members(Resource):
             return '', 204
         
         return resp
+    
+def database():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = shelve.open("conferences.db")
+    return db
+
+@app.teardown_appcontext
+def teardown_db(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
         
