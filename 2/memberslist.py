@@ -8,10 +8,18 @@ app = Flask(__name__)
 
 class MembersList(Resource):
     def get(self, cid):
+        entries = database()
+        if not (str(cid) in entries):
+            return {'message': 'No such conference', 'data': {}}, 404
+        
         r = requests.get('http://usr_s:5009/' + str(cid) + '/users')
         return r.json()
         
     def post(self, cid):
+        entries = database()
+        if not (str(cid) in entries):
+            return {'message': 'No such conference', 'data': {}}, 404
+        
         parser = reqparse.RequestParser()
         parser.add_argument('firstName', required=True)
         parser.add_argument('lastName', required=True)
@@ -29,3 +37,15 @@ class MembersList(Resource):
             resp.status_code = 201
         
         return resp
+
+def database():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = shelve.open("conferences.db")
+    return db
+
+@app.teardown_appcontext
+def teardown_db(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
