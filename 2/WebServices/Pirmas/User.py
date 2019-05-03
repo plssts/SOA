@@ -9,7 +9,7 @@ class UserList(Resource):
         shelf = get_mem()
         
         if not (str(cid) in shelf):
-            return {'message': 'No members as of yet', 'data': {}}, 404
+            return {'message': 'No attendees', 'data': {}}, 404
 
         return {'message': 'Attendees', 'data': shelf[str(cid)]}, 200
 
@@ -30,11 +30,10 @@ class UserList(Resource):
             return {'message': 'Email Already Exists', 'data': {}}, 409
     
         previous[args['email']] = args
-        #return {'message': previous}, 200
         shelf[str(cid)] = previous
         #shelf[args['email']] = args
 
-        return {'message': 'User created', 'data': args}, 201, {'Location': '/users/' + args['email']}
+        return {'message': 'Attendee created', 'data': args}, 201, {'Location': '/users/' + args['email']}
 
 
 class Users(Resource):
@@ -42,21 +41,21 @@ class Users(Resource):
         shelf = get_mem()
         
         if not (str(cid) in shelf):
-            return {'message': 'No such conference', 'data': {}}, 404
+            return {'message': 'No attendees', 'data': {}}, 404
 
         if not (email in shelf[str(cid)]):
-            return {'message': 'User not found', 'data': {}}, 404
+            return {'message': 'Attendee not found', 'data': {}}, 404
 
-        return {'message': 'User', 'data': shelf[str(cid)][email]}, 200
+        return {'message': 'Attendee', 'data': shelf[str(cid)][email]}, 200
 
     def put(self, cid, email):
         shelf = get_mem()
         
         if not (str(cid) in shelf):
-            return {'message': 'No such conference', 'data': {}}, 404
+            return {'message': 'No attendees', 'data': {}}, 404
 
         if not (email in shelf[str(cid)]):
-            return {'message': 'User not found', 'data': {}}, 404
+            return {'message': 'Attendee not found', 'data': {}}, 404
 
         parser = reqparse.RequestParser()
         parser.add_argument('firstName', required=True)
@@ -81,16 +80,16 @@ class Users(Resource):
         #del newHash[email]
         #shelf[str(cid)][args['email']] = args
 
-        return {'message': 'User updated successfully', 'data': args}, 202
+        return {'message': 'Attendee updated successfully', 'data': args}, 202
 
     def patch(self, cid, email):
         shelf = get_mem()
         
         if not (str(cid) in shelf):
-            return {'message': 'No such conference', 'data': {}}, 404
+            return {'message': 'No attendees', 'data': {}}, 404
 
         if not (email in shelf[str(cid)]):
-            return {'message': 'User not found', 'data': {}}, 404
+            return {'message': 'Attendee not found', 'data': {}}, 404
 
         parser = reqparse.RequestParser()
         parser.add_argument('firstName', required=False)
@@ -125,16 +124,16 @@ class Users(Resource):
             
         shelf[str(cid)] = previous
 
-        return {'message': 'User updated successfully', 'data': user}, 202, {'Location': '/users/' + email}
+        return {'message': 'Attendee updated successfully', 'data': user}, 202, {'Location': '/users/' + email}
 
     def delete(self, cid, email):
         shelf = get_mem()
         
         if not (str(cid) in shelf):
-            return {'message': 'No such conference', 'data': {}}, 404
+            return {'message': 'No attendees', 'data': {}}, 404
 
         if not (email in shelf[str(cid)]):
-            return {'message': 'User not found', 'data': {}}, 404
+            return {'message': 'Attendee not found', 'data': {}}, 404
 
         newHash = shelf[str(cid)]
         del newHash[email]
