@@ -13,7 +13,16 @@ class MembersList(Resource):
             return {'message': 'No such conference', 'data': {}}, 404
         
         r = requests.get('http://usr_s:5009/' + str(cid) + '/users')
-        return r.json()
+        
+        # response loses its status somewhere, so
+        # it is assembled manually
+        resp = Response(str(r.json()).replace("'", '"'))
+        if r.json()['message'] == 'No attendees':
+            resp.status_code = 404
+        else:
+            resp.status_code = 200
+        
+        return resp
         
     def post(self, cid):
         entries = database()
