@@ -70,9 +70,12 @@ class Users(Resource):
             return {'message': 'Email Already Exists', 'data': {}}, 409
 
         #del shelf[str(cid)][email]
-        newHash = shelf[str(cid)]
-        del newHash[email]
-        shelf[str(cid)][args['email']] = args
+        previous = shelf[str(cid)]
+        previous[email] = args
+        shelf[str(cid)] = previous
+        #newHash = shelf[str(cid)]
+        #del newHash[email]
+        #shelf[str(cid)][args['email']] = args
 
         return {'message': 'User updated successfully', 'data': args}, 202
 
