@@ -70,7 +70,8 @@ class Users(Resource):
         if (args['email'] in shelf[str(cid)]) and (args['email'] != email):
             return {'message': 'Email Already Exists', 'data': {}}, 409
 
-        del shelf[str(cid)][email]
+        #del shelf[str(cid)][email]
+        shelf[str(cid)].pop(email, None)
         shelf[str(cid)][args['email']] = args
 
         return {'message': 'User updated successfully', 'data': args}, 202
