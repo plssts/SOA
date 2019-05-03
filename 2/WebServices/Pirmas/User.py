@@ -71,7 +71,11 @@ class Users(Resource):
 
         #del shelf[str(cid)][email]
         previous = shelf[str(cid)]
-        previous[email] = args
+        if args['email'] != email:
+            del previous[email]
+            previous[args['email']] = args
+        else:
+            previous[email] = args
         shelf[str(cid)] = previous
         #newHash = shelf[str(cid)]
         #del newHash[email]
