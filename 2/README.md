@@ -22,9 +22,9 @@ Jump to:
 
 Clone this repository with ```git clone https://github.com/plssts/SOA```.
 
-Navigate to ```SOA/2``` and execute ```./init.sh```. This will build and link all needed services. You might need to provide necessary permissions to execute the file with ```chmod +x init.sh```.
+Navigate to ```SOA/2``` and execute ```docker-compose up --build```.
 
-It is recommended to execute ```./cleanup.sh``` (again, make this file executable with ```chmod +x cleanup.sh``` if needed) after finishing using the service. This will stop running services, remove the dedicated network bridge and clean images.
+It is recommended to execute ```./cleanup.sh``` (make this file executable with ```chmod +x cleanup.sh``` if needed) after finishing using the service. This will stop running services, remove the containers and clean images.
 
 <a name="wwc"></a>
 # Working with conferences
