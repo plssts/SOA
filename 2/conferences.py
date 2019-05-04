@@ -14,7 +14,7 @@ class Conferences(Resource):
         
         dataHash = entries[str(cid)]
         r = requests.get('http://usr_s:5009/' + str(cid) + '/users')
-        if not r.json()['message'] == 'No members as of yet':
+        if not r.json()['message'] == 'No attendees':
             if 'embedded' in request.args and request.args['embedded'] == 'attendees':
                 dataHash['attendees'] = [r.json()['data'][key] for key in list(r.json()['data'].keys())]
             else:
@@ -46,7 +46,7 @@ class Conferences(Resource):
             return {'message': 'No such conference', 'data': {}}, 404
         
         r = requests.get('http://usr_s:5009/' + str(cid) + '/users')
-        if not r.json()['message'] == 'No members as of yet':
+        if not r.json()['message'] == 'No attendees':
             for key in list(r.json()['data'].keys()):
                 requests.delete('http://usr_s:5009/' + str(cid) + '/users/' + key)
         
