@@ -218,15 +218,15 @@ Response:
     "message": "Conferences",
     "data": [
         {
-            "title": "NYSE Global",
-            "info": "Securities operators welcome",
-            "date": "20/01/20",
+            "title": "NYSE Securities Operators Annual",
+            "info": "Register through [website] with your corporate email",
+            "date": "20-04-20",
             "cid": "1"
         },
         {
-            "title": "China International Trading",
-            "info": "tickets unavailable",
-            "date": "30/12/19",
+            "title": "China Global Trading",
+            "info": "Information here",
+            "date": "TBD",
             "cid": "2"
         }
     ]
