@@ -13,7 +13,11 @@ class Conferences(Resource):
             return {'message': 'No such conference', 'data': {}}, 404
         
         dataHash = entries[str(cid)]
-        r = requests.get('http://usr_s:5009/' + str(cid) + '/users')
+        try:
+            r = requests.get('http://usr_s:5009/' + str(cid) + '/users')
+        except requests.exceptions.RequestException:
+            return {'message': 'Kitas offline'}, 501
+            
         if not r.json()['message'] == 'No attendees':
             if 'embedded' in request.args and request.args['embedded'] == 'attendees':
                 dataHash['attendees'] = [r.json()['data'][key] for key in list(r.json()['data'].keys())]
