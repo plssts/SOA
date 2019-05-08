@@ -13,7 +13,10 @@ class Members(Resource):
         if not (str(cid) in entries):
             return {'message': 'No such conference', 'data': {}}, 404
         
-        r = requests.get('http://usr_s:5009/' + str(cid) + '/users/' + email)
+        try:
+            r = requests.get('http://usr_s:5009/' + str(cid) + '/users/' + email)
+        except requests.exceptions.ConnectionError:
+            return {'message': 'Attendee service offline', 'data': {}}, 503
         
         # response loses its status somewhere, so
         # it is assembled manually
@@ -35,7 +38,11 @@ class Members(Resource):
         parser.add_argument('lastName', required=True)
         parser.add_argument('email', required=True)
         args = parser.parse_args()
-        r = requests.put('http://usr_s:5009/' + str(cid) + '/users/' + email, data=args)
+        
+        try:
+            r = requests.put('http://usr_s:5009/' + str(cid) + '/users/' + email, data=args)
+        except requests.exceptions.ConnectionError:
+            return {'message': 'Attendee service offline', 'data': {}}, 503
         
         # response loses its status somewhere, so
         # it is assembled manually
@@ -59,7 +66,11 @@ class Members(Resource):
         parser.add_argument('lastName', required=False)
         parser.add_argument('email', required=False)
         args = parser.parse_args()
-        r = requests.patch('http://usr_s:5009/' + str(cid) + '/users/' + email, data=args)
+        
+        try:
+            r = requests.patch('http://usr_s:5009/' + str(cid) + '/users/' + email, data=args)
+        except requests.exceptions.ConnectionError:
+            return {'message': 'Attendee service offline', 'data': {}}, 503
         
         # response loses its status somewhere, so
         # it is assembled manually
@@ -78,7 +89,10 @@ class Members(Resource):
         if not (str(cid) in entries):
             return {'message': 'No such conference', 'data': {}}, 404
         
-        r = requests.delete('http://usr_s:5009/' + str(cid) + '/users/' + email)
+        try:
+            r = requests.delete('http://usr_s:5009/' + str(cid) + '/users/' + email)
+        except requests.exceptions.ConnectionError:
+            return {'message': 'Attendee service offline', 'data': {}}, 503
         
         # response loses its status somewhere, so
         # it is assembled manually
