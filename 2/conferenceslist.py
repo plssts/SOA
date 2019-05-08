@@ -13,7 +13,11 @@ class ConferencesList(Resource):
         conferences = []
         for e in elements:
             dataHash = entries[e]
-            r = requests.get('http://usr_s:5009/' + str(e) + '/users')
+            try:
+                r = requests.get('http://usr_s:5009/' + str(e) + '/users')
+            except requests.exceptions.ConnectionError:
+                return {'message': 'Kitas offline'}, 501
+            
             if not r.json()['message'] == 'No attendees':
                 if 'embedded' in request.args and request.args['embedded'] == 'attendees':
                     dataHash['attendees'] = [r.json()['data'][key] for key in list(r.json()['data'].keys())]
