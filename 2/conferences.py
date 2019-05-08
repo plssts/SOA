@@ -15,7 +15,7 @@ class Conferences(Resource):
         dataHash = entries[str(cid)]
         try:
             r = requests.get('http://usr_s:5009/' + str(cid) + '/users')
-        except requests.exceptions.RequestException:
+        except requests.exceptions.ConnectionError:
             return {'message': 'Kitas offline'}, 501
             
         if not r.json()['message'] == 'No attendees':
