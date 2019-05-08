@@ -12,7 +12,10 @@ class MembersList(Resource):
         if not (str(cid) in entries):
             return {'message': 'No such conference', 'data': {}}, 404
         
-        r = requests.get('http://usr_s:5009/' + str(cid) + '/users')
+        try:
+            r = requests.get('http://usr_s:5009/' + str(cid) + '/users')
+        except requests.exceptions.ConnectionError:
+            return {'message': 'Attendee service offline', 'data': {}}, 503
         
         # response loses its status somewhere, so
         # it is assembled manually
@@ -35,7 +38,10 @@ class MembersList(Resource):
         parser.add_argument('email', required=True)
         args = parser.parse_args()
         
-        r = requests.post('http://usr_s:5009/' + str(cid) + '/users', data=args)
+        try:
+            r = requests.post('http://usr_s:5009/' + str(cid) + '/users', data=args)
+        except requests.exceptions.ConnectionError:
+            return {'message': 'Attendee service offline', 'data': {}}, 503
         
         # response loses its status somewhere, so
         # it is assembled manually
