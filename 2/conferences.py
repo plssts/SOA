@@ -23,7 +23,7 @@ class Conferences(Resource):
         except requests.exceptions.ConnectionError:
             return {'message': 'Conference', 'data': dataHash}, 200
             
-        #return {'message': 'Conference', 'data': dataHash}, 200
+        return {'message': 'Conference', 'data': dataHash}, 200
         
     def put(self, cid):
         entries = database()
