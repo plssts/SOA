@@ -1,0 +1,27 @@
+version: '2'
+services:
+  soap:
+    build: SOAP/target
+    command: java -cp SOAP-1.0-SNAPSHOT-jar-with-dependencies.jar com.soap.endpoint.SoapPublisher
+    ports:
+    - 80:5006
+    networks:
+    - ws_bridge
+  base:
+    build: 2/
+    command: python app.py
+    ports:
+    - 5008:5008
+    networks:
+    - ws_bridge
+  soap_usr_1:
+    build: 2/WebServices/Pirmas
+    command: python app.py
+    ports:
+    - 5009:5009
+    container_name: soap_usr_1
+    networks:
+    - ws_bridge
+    
+networks:
+  ws_bridge:
