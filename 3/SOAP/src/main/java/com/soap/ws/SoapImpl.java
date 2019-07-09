@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.soap.ws;
 import javax.jws.WebService;
 import java.io.BufferedReader;
@@ -43,7 +38,7 @@ public class SoapImpl implements Soap {
             con.disconnect();
             System.out.println("Something really broken" + e);
         }
-
+        
         return conf;
     }
     
@@ -360,10 +355,7 @@ public class SoapImpl implements Soap {
                     out.close();
 
                     String json = EnvelopeConverter.conJSON(con);
-                    //outcome = EnvelopeConverter.jsonToOutcomeAttendee(json);
                     if (con.getResponseCode() > 300) {
-                        //throw new RuntimeException("Failed : HTTP error code from REST service was returned: "
-                               // + con.getResponseCode());
                         os.cat("\nAttendee with email " + email + " could not be added.");
                     }
                     else {
@@ -375,15 +367,11 @@ public class SoapImpl implements Soap {
                 catch(IOException e){
                     os.cat("\nAttendee with email " + email + " could not be added.");
                 }
-
-                
             }
             return os;  
             
             
-        } /*catch (ProtocolException e) {
-            outcome = new OutcomeSimple("Something went wrong");
-        } */catch (IOException e) {
+        } catch (IOException e) {
             outcome = new OutcomeSimple("Incorrect parameters");
         }
         return outcome;
@@ -490,12 +478,9 @@ public class SoapImpl implements Soap {
             con.setDoOutput(true);
             con.setRequestMethod("DELETE");
             con.setRequestProperty("Accept", "application/x-www-form-urlencoded");
-            //System.out.println("Connecting...");
             con.connect();
             String json = EnvelopeConverter.conJSON(con);
-            //.out.println("Gonna convert...");
-            //returnval = EnvelopeConverter.jsonToOutcomeConference(json);
-            //System.out.println("Done");
+
             if (con.getResponseCode() == 200) {
                 return new OutcomeConference("Successfully deleted conference with cid: " + cid);
             }
@@ -527,12 +512,9 @@ public class SoapImpl implements Soap {
             con.setDoOutput(true);
             con.setRequestMethod("DELETE");
             con.setRequestProperty("Accept", "application/x-www-form-urlencoded");
-            //System.out.println("Connecting...");
             con.connect();
             String json = EnvelopeConverter.conJSON(con);
-            //.out.println("Gonna convert...");
-            //returnval = EnvelopeConverter.jsonToOutcomeConference(json);
-            //System.out.println("Done");
+
             if (con.getResponseCode() == 200) {
                 return new OutcomeAttendee("Successfully deleted attendee with email: " + email + " in conference cid: " + cid);
             }
