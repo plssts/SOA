@@ -13,13 +13,16 @@ class Conferences(Resource):
             return {'message': 'No such conference', 'data': {}}, 404
         
         dataHash = entries[str(cid)]
+        
         try:
             r = requests.get('http://usr_s:5009/' + str(cid) + '/users')
+            
             if not r.json()['message'] == 'No attendees':
                 if 'embedded' in request.args and request.args['embedded'] == 'attendees':
                     dataHash['attendees'] = [r.json()['data'][key] for key in list(r.json()['data'].keys())]
                 else:
                     dataHash['attendees'] = [key for key in list(r.json()['data'].keys())]
+                    
         except requests.exceptions.ConnectionError:
             return {'message': 'Conference', 'data': dataHash}, 200
             
@@ -50,6 +53,7 @@ class Conferences(Resource):
         
         try:
             r = requests.get('http://usr_s:5009/' + str(cid) + '/users')
+            
             if not r.json()['message'] == 'No attendees':
                 for key in list(r.json()['data'].keys()):
                     requests.delete('http://usr_s:5009/' + str(cid) + '/users/' + key)
@@ -57,6 +61,7 @@ class Conferences(Resource):
             del entries[str(cid)]
 
             return {'message': 'Conference removed', 'data': str(cid)}, 200
+        
         except requests.exceptions.ConnectionError:
             return {'message': 'Conference cannot be removed due to unavailability of attendee service', 'data': {}}, 503
         
@@ -65,13 +70,16 @@ class Conferences(Resource):
 # duombazes uzkrovimas
 def database():
     db = getattr(g, '_database', None)
+    
     if db is None:
         db = g._database = shelve.open("conferences.db")
+        
     return db
 
 # duombazes panaikinimas
 @app.teardown_appcontext
 def teardown_db():
     db = getattr(g, '_database', None)
+    
     if db is not None:
         db.close()
