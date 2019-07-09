@@ -1,6 +1,5 @@
 package com.soap.ws;
 import javax.xml.bind.annotation.XmlRootElement;
-
 @XmlRootElement
 public class ConferenceEMB {
     public String title;
