@@ -1,5 +1,4 @@
 package com.soap.ws.jaxws;
-
 import com.soap.ws.OutcomeAttendee;
 import com.soap.ws.OutcomeSimple;
 import javax.xml.bind.annotation.XmlAccessType;
