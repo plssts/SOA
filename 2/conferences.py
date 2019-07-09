@@ -6,6 +6,7 @@ import requests
 app = Flask(__name__)
 
 class Conferences(Resource):
+    # GET - retrieve a specific conference
     def get(self, cid):
         entries = database()
         
@@ -28,6 +29,7 @@ class Conferences(Resource):
             
         return {'message': 'Conference', 'data': dataHash}, 200
         
+    # PUT - edit a specific conference
     def put(self, cid):
         entries = database()
         
@@ -45,6 +47,7 @@ class Conferences(Resource):
 
         return {'message': 'Conference updated', 'data': args}, 200
         
+    # DELETE - remove a specific conference
     def delete(self, cid):
         entries = database()
 
