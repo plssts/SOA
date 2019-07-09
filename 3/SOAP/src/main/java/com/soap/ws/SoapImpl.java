@@ -24,8 +24,7 @@ public class SoapImpl implements Soap {
             con.setRequestProperty("Accept", "application/json");
             
             if (con.getResponseCode() != 200) {
-                throw new RuntimeException("Failed : HTTP error code : "
-                        + con.getResponseCode());
+                throw new RuntimeException("Failed: " + con.getResponseCode());
             }
             
             String json = EnvelopeConverter.conJSON(con);
@@ -33,12 +32,9 @@ public class SoapImpl implements Soap {
             con.disconnect();
         } catch (ProtocolException e) {
             con.disconnect();
-            System.out.println("Something broken" + e);
         } catch (IOException e) {
             con.disconnect();
-            System.out.println("Something really broken" + e);
         }
-        
         return conf;
     }
     
@@ -53,8 +49,7 @@ public class SoapImpl implements Soap {
             con.setRequestProperty("Accept", "application/json");
             
             if (con.getResponseCode() != 200) {
-                throw new RuntimeException("Failed : HTTP error code : "
-                        + con.getResponseCode());
+                throw new RuntimeException("Failed: " + con.getResponseCode());
             }
             
             String json = EnvelopeConverter.conJSON(con);
@@ -62,10 +57,8 @@ public class SoapImpl implements Soap {
             con.disconnect();
         } catch (ProtocolException e) {
             con.disconnect();
-            System.out.println("Something broken" + e);
         } catch (IOException e) {
             con.disconnect();
-            System.out.println("Something really broken" + e);
         }
         return conf;
     }
@@ -85,20 +78,16 @@ public class SoapImpl implements Soap {
             con.setRequestMethod("GET");
             con.setRequestProperty("Accept", "application/json");
             if (con.getResponseCode() > 300) {
-                throw new RuntimeException("Failed : HTTP error code from REST service was returned: "
-                        + con.getResponseCode());
+                throw new RuntimeException("Failed: " + con.getResponseCode());
             }
             String json = EnvelopeConverter.conJSON(con);
             conf = EnvelopeConverter.jsonToConference(json, cid);
             con.disconnect();
         } catch (ProtocolException e) {
             con.disconnect();
-            System.out.println("Something broken" + e);
         } catch (IOException e) {
             con.disconnect();
-            System.out.println("Something really broken" + e);
         }
-
         return conf;
     }
     
@@ -117,18 +106,15 @@ public class SoapImpl implements Soap {
             con.setRequestMethod("GET");
             con.setRequestProperty("Accept", "application/json");
             if (con.getResponseCode() > 300) {
-                throw new RuntimeException("Failed : HTTP error code from REST service was returned: "
-                        + con.getResponseCode());
+                throw new RuntimeException("Failed: " + con.getResponseCode());
             }
             String json = EnvelopeConverter.conJSON(con);
             conf = EnvelopeConverter.jsonToConferenceEMB(json, cid);
             con.disconnect();
         } catch (ProtocolException e) {
             con.disconnect();
-            System.out.println("Something broken" + e);
         } catch (IOException e) {
             con.disconnect();
-            System.out.println("Something really broken" + e);
         }
         return conf;
     }
@@ -148,20 +134,16 @@ public class SoapImpl implements Soap {
             con.setRequestMethod("GET");
             con.setRequestProperty("Accept", "application/json");
             if (con.getResponseCode() > 300) {
-                throw new RuntimeException("Failed : HTTP error code from REST service was returned: "
-                        + con.getResponseCode());
+                throw new RuntimeException("Failed: " + con.getResponseCode());
             }
             String json = EnvelopeConverter.conJSON(con);
             att = EnvelopeConverter.jsonToConferenceAttendees(json, cid);
             con.disconnect();
         } catch (ProtocolException e) {
             con.disconnect();
-            System.out.println("Something broken" + e);
         } catch (IOException e) {
             con.disconnect();
-            System.out.println("Something really broken" + e);
         }
-
         return att;
     }
     
@@ -199,16 +181,13 @@ public class SoapImpl implements Soap {
             String json = EnvelopeConverter.conJSON(con);
             outcome = EnvelopeConverter.jsonToOutcomeConference(json);
             if (con.getResponseCode() > 300) {
-                throw new RuntimeException("Failed : HTTP error code from REST service was returned: "
-                        + con.getResponseCode());
+                throw new RuntimeException("Failed: " + con.getResponseCode());
             }
             con.disconnect();
         } catch (ProtocolException e) {
             outcome = new OutcomeConference();
-            outcome.message = "Something went wrong";
         } catch (IOException e) {
             outcome = new OutcomeConference();
-            outcome.message = "Incorrect input parameters";
         }
         return outcome;
     }
@@ -244,24 +223,20 @@ public class SoapImpl implements Soap {
             con.setRequestMethod("PUT");
             con.setRequestProperty("Accept", "application/json");
             con.setRequestProperty("Content-Type", "application/json");
-            OutputStreamWriter out = new OutputStreamWriter(
-                    con.getOutputStream());
+            OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream());
             out.write(newobj);
             out.close();
 
             String json = EnvelopeConverter.conJSON(con);
             outcome = EnvelopeConverter.jsonToOutcomeConference(json);
             if (con.getResponseCode() > 300) {
-                throw new RuntimeException("Failed : HTTP error code from REST service was returned: "
-                        + con.getResponseCode());
+                throw new RuntimeException("Failed: " + con.getResponseCode());
             }
             con.disconnect();
         } catch (ProtocolException e) {
             outcome = new OutcomeConference();
-            outcome.message = "Something went wrong";
         } catch (IOException e) {
             outcome = new OutcomeConference();
-            outcome.message = "Incorrect parameters";
         }
         return outcome;
     }
@@ -302,8 +277,7 @@ public class SoapImpl implements Soap {
             String json = EnvelopeConverter.conJSON(con);
             outcome = EnvelopeConverter.jsonToOutcomeAttendee(json);
             if (con.getResponseCode() > 300) {
-                throw new RuntimeException("Failed : HTTP error code from REST service was returned: "
-                        + con.getResponseCode());
+                throw new RuntimeException("Failed: " + con.getResponseCode());
             }
             con.disconnect();
         } catch (ProtocolException e) {
@@ -323,7 +297,6 @@ public class SoapImpl implements Soap {
         try {
             URL url = new URL("http://base:5008/conferences/" + Integer.toString(cid) + "/attendees");
             OutcomeSimple os = new OutcomeSimple();
-            System.out.println("Beginning for, size of all: " + all.length);
             
             for (Attendee a : all){
                 String firstName = a.firstName, lastName = a.lastName, email = a.email;
@@ -340,9 +313,7 @@ public class SoapImpl implements Soap {
                 if (newobj.endsWith(",")){
                     newobj = newobj.substring(0, newobj.length() - 1);
                 }
-
                 newobj += "}";
-                System.out.println("Newobj is: " + newobj);
                 
                 try {
                     HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -370,7 +341,6 @@ public class SoapImpl implements Soap {
             }
             return os;  
             
-            
         } catch (IOException e) {
             outcome = new OutcomeSimple("Incorrect parameters");
         }
@@ -397,7 +367,6 @@ public class SoapImpl implements Soap {
             else {
                 newobj += "\"email\": \"" + email + "\",";
             }
-                
 
             if (newobj.endsWith(",")){
                 newobj = newobj.substring(0, newobj.length() - 1);
@@ -418,8 +387,7 @@ public class SoapImpl implements Soap {
             String json = EnvelopeConverter.conJSON(con);
             outcome = EnvelopeConverter.jsonToOutcomeAttendee(json);
             if (con.getResponseCode() > 300) {
-                throw new RuntimeException("Failed : HTTP error code from REST service was returned: "
-                        + con.getResponseCode());
+                throw new RuntimeException("Failed: " + con.getResponseCode());
             }
             con.disconnect();
         } catch (ProtocolException e) {
@@ -445,20 +413,16 @@ public class SoapImpl implements Soap {
             con.setRequestMethod("GET");
             con.setRequestProperty("Accept", "application/json");
             if (con.getResponseCode() > 300) {
-                throw new RuntimeException("Failed : HTTP error code from REST service was returned: "
-                        + con.getResponseCode());
+                throw new RuntimeException("Failed: " + con.getResponseCode());
             }
             String json = EnvelopeConverter.conJSON(con);
-            System.out.println("Gonna parse:");
             at = EnvelopeConverter.jsonToConferenceAttendee(json);
-            System.out.println("Parsed this baby: \n" + at);
             con.disconnect();
         } catch (ProtocolException e) {
             System.out.println("Something went wrong");
         } catch (IOException e) {
             System.out.println("Something went really wrong");
         }
-
         return at;
     }
     
@@ -474,7 +438,6 @@ public class SoapImpl implements Soap {
         try {
             URL url = new URL("http://base:5008/conferences/" + Integer.toString(cid));
             con = (HttpURLConnection)url.openConnection();
-            System.out.println("Setting output...");
             con.setDoOutput(true);
             con.setRequestMethod("DELETE");
             con.setRequestProperty("Accept", "application/x-www-form-urlencoded");
@@ -508,7 +471,6 @@ public class SoapImpl implements Soap {
         try {
             URL url = new URL("http://base:5008/conferences/" + Integer.toString(cid) + "/attendees/" + email);
             con = (HttpURLConnection)url.openConnection();
-            System.out.println("Setting output...");
             con.setDoOutput(true);
             con.setRequestMethod("DELETE");
             con.setRequestProperty("Accept", "application/x-www-form-urlencoded");
