@@ -419,9 +419,7 @@ public class SoapImpl implements Soap {
             at = EnvelopeConverter.jsonToConferenceAttendee(json);
             con.disconnect();
         } catch (ProtocolException e) {
-            System.out.println("Something went wrong");
         } catch (IOException e) {
-            System.out.println("Something went really wrong");
         }
         return at;
     }
