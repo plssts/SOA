@@ -6,6 +6,7 @@ import requests
 app = Flask(__name__)
 
 class ConferenceAttendees(Resource):
+    # GET - retrieve a list of attendees under a conference
     def get(self, cid):
         entries = database()
         
@@ -14,6 +15,7 @@ class ConferenceAttendees(Resource):
 
         return {'message': 'Conference', 'data': entries[str(cid)]}, 200
         
+    # POST - add a new attendee under a conference
     def post(self, cid):
         entries = database()
 
@@ -43,6 +45,7 @@ class ConferenceAttendees(Resource):
 
         return {'message': 'New attendee added', 'data': email}, 201
         
+    # DELETE - remove an attendee specified by email parameter in the body
     def delete(self, cid):
         entries = database()
 
