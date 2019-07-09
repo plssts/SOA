@@ -1,5 +1,4 @@
 package com.soap.ws;
-
 public class OutcomeAttendee {
     public String message;
     public Attendee data;
