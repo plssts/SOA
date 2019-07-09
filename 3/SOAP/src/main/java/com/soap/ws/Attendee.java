@@ -4,7 +4,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
 @XmlRootElement(name = "attendee", namespace = "http://ws.soap.com/")
 @XmlType(name = "attendee", namespace = "http://ws.soap.com/")
 @XmlAccessorType(XmlAccessType.FIELD)
