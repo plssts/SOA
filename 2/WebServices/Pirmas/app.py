@@ -27,5 +27,6 @@ api.add_resource(Users, '/<int:cid>/users/<string:email>')
 if __name__ == '__main__':
     try:
         app.run(host="0.0.0.0", port=5009, debug=True)
+        
     except:
         print ('')
