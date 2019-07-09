@@ -15,13 +15,15 @@ class ConferencesList(Resource):
             dataHash = entries[e]
             try:
                 r = requests.get('http://soap_usr_1:5009/' + str(e) + '/users')
+                
                 if not r.json()['message'] == 'No attendees':
                     if 'embedded' in request.args and request.args['embedded'] == 'attendees':
                         dataHash['attendees'] = [r.json()['data'][key] for key in list(r.json()['data'].keys())]
                     else:
                         dataHash['attendees'] = [key for key in list(r.json()['data'].keys())]
-                conferences.append(dataHash) # > fix - when the user service is fine but has no record of
-                # any attendees yet, new conferences are missed altogether. <
+                        
+                conferences.append(dataHash)
+                
             except requests.exceptions.ConnectionError:
                 conferences.append(dataHash)
                 pass
@@ -53,13 +55,16 @@ class ConferencesList(Resource):
 # duombazes uzkrovimas
 def database():
     db = getattr(g, '_database', None)
+    
     if db is None:
         db = g._database = shelve.open("conferences.db")
+        
     return db
 
 # duombazes panaikinimas
 @app.teardown_appcontext
 def teardown_db():
     db = getattr(g, '_database', None)
+    
     if db is not None:
         db.close()
