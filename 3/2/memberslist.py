@@ -7,6 +7,7 @@ import requests
 app = Flask(__name__)
 
 class MembersList(Resource):
+    # GET - all members of a conference
     def get(self, cid):
         entries = database()
         
@@ -30,6 +31,7 @@ class MembersList(Resource):
         
         return resp
         
+    # POST - add a new attendee under a conference
     def post(self, cid):
         entries = database()
         
