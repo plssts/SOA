@@ -17,46 +17,33 @@ public class EnvelopeConverter {
         return output;
     }
     
-    public static OutcomeConference jsonToOutcomeConference(String json) throws IOException
-    {
+    public static OutcomeConference jsonToOutcomeConference(String json) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         OutcomeConference o = null;
         o = mapper.readValue(json, OutcomeConference.class);
         return o;
     }
     
-    public static OutcomeAttendee jsonToOutcomeAttendee(String json) throws IOException
-    {
+    public static OutcomeAttendee jsonToOutcomeAttendee(String json) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         OutcomeAttendee o = null;
         o = mapper.readValue(json, OutcomeAttendee.class);
         return o;
     }
     
-    public static Conference[] jsonToConferences(String json) throws IOException
-    {
+    public static Conference[] jsonToConferences(String json) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         Conference[] conf = null;
-        
-        System.out.println("json is: \n" + json);
-        
         int start = json.indexOf("[");
-        
-        // POTENTIAL CRASHING POINT HERE?
-        
         json = json.substring(start, json.length());
         conf = mapper.readValue(json, Conference[].class);
         System.out.println("Collected " + conf.length + " conferences.");
         return conf;
     }
     
-    public static ConferenceEMB[] jsonToConferencesEMB(String json) throws IOException
-    {
+    public static ConferenceEMB[] jsonToConferencesEMB(String json) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         ConferenceEMB[] conf = null;
-        
-        System.out.println("json is: \n" + json);
-        
         int start = json.indexOf("\"data\":") + 7;
         json = json.substring(start, json.length());
         conf = mapper.readValue(json, ConferenceEMB[].class);
@@ -64,21 +51,16 @@ public class EnvelopeConverter {
         return conf;
     }
     
-    public static ConferenceEMB jsonToConferenceEMB(String json, Integer cid) throws IOException
-    {
+    public static ConferenceEMB jsonToConferenceEMB(String json, Integer cid) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         ConferenceEMB conf = null;
-        
-        System.out.println("json is: \n" + json);
-        
         int start = json.indexOf("{", 2);
         json = json.substring(start, json.length());
         conf = mapper.readValue(json, ConferenceEMB.class);
         return conf;
     }
     
-    public static Conference jsonToConference(String json, Integer cid) throws IOException
-    {
+    public static Conference jsonToConference(String json, Integer cid) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         Conference conf = null;
         int start = json.indexOf("{", 2);
@@ -88,8 +70,7 @@ public class EnvelopeConverter {
         return conf;
     }
     
-    public static Attendee jsonToConferenceAttendee(String json) throws IOException
-    {
+    public static Attendee jsonToConferenceAttendee(String json) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         Attendee at = null;
         int start = json.indexOf("{", 2);
@@ -98,8 +79,7 @@ public class EnvelopeConverter {
         return at;
     }
     
-    public static Attendee[] jsonToConferenceAttendees(String json, Integer cid) throws IOException
-    {
+    public static Attendee[] jsonToConferenceAttendees(String json, Integer cid) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         Attendee[] att = null;
         String normalised = "[";
