@@ -5,7 +5,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
 import com.soap.ws.Attendee;
 
 @XmlRootElement(name = "getConferenceAttendeeResponse", namespace = "http://ws.soap.com/")
