@@ -1,5 +1,4 @@
 package com.soap.ws;
-
 public class OutcomeSimple {
     public String message;
     
