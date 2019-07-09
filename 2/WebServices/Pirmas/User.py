@@ -109,6 +109,7 @@ class Users(Resource):
 
         if not (args['email'] is None):
             user['email'] = args['email']
+            
             if args['email'] in shelf[str(cid)]:
                 return {'message': 'Email Already Exists', 'data': {}}, 409
 
@@ -118,6 +119,7 @@ class Users(Resource):
             #shelf[str(cid)][args['email']] = user
             del previous[email]
             previous[args['email']] = user
+            
         else:
             #shelf[str(cid)][email] = user
             previous[email] = user
@@ -169,22 +171,29 @@ def fill_start():
 
 def get_db():
     db = getattr(g, '_database', None)
+    
     if db is None:
         db = g._database = shelve.open("conferences.db")
+        
     return db
 
 def get_mem():
     db = getattr(g, '_members', None)
+    
     if db is None:
         db = g._database = shelve.open("attendees.db")
+        
     return db
 
 
 @app.teardown_appcontext
 def teardown_db(exception):
     db = getattr(g, '_database', None)
+    
     if db is not None:
         db.close()
+        
     db = getattr(g, '_members', None)
+    
     if db is not None:
         db.close()
