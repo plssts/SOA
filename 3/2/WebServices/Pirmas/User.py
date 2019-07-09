@@ -70,11 +70,14 @@ class Users(Resource):
 
         #del shelf[str(cid)][email]
         previous = shelf[str(cid)]
+        
         if args['email'] != email:
             del previous[email]
             previous[args['email']] = args
+            
         else:
             previous[email] = args
+            
         shelf[str(cid)] = previous
         #newHash = shelf[str(cid)]
         #del newHash[email]
@@ -169,22 +172,29 @@ def fill_start():
 
 def get_db():
     db = getattr(g, '_database', None)
+    
     if db is None:
         db = g._database = shelve.open("conferences.db")
+        
     return db
 
 def get_mem():
     db = getattr(g, '_members', None)
+    
     if db is None:
         db = g._database = shelve.open("attendees.db")
+        
     return db
 
 
 @app.teardown_appcontext
 def teardown_db(exception):
     db = getattr(g, '_database', None)
+    
     if db is not None:
         db.close()
+        
     db = getattr(g, '_members', None)
+    
     if db is not None:
         db.close()
