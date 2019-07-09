@@ -8,6 +8,7 @@ import json
 app = Flask(__name__)
 
 class Members(Resource):
+    # GET - retrieve a specific attendee under a specific conference
     def get(self, cid, email):
         entries = database()
         
@@ -31,6 +32,7 @@ class Members(Resource):
         
         return resp
         
+    # PUT - edit a specific attendee under a specific conference
     def put(self, cid, email):
         entries = database()
         
@@ -62,6 +64,7 @@ class Members(Resource):
         
         return resp
 
+    # PATCH - edit a specific attendee under a specific conference
     def patch(self, cid, email):
         entries = database()
         
@@ -93,6 +96,7 @@ class Members(Resource):
         
         return resp
 
+    # DELETE - remove a specific attendee under a specific conference
     def delete(self, cid, email):
         entries = database()
         
