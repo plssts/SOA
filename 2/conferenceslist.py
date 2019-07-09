@@ -6,6 +6,7 @@ import requests
 app = Flask(__name__)
 
 class ConferencesList(Resource):
+    # GET - all conferences
     def get(self):
         entries = database()
         elements = list(entries.keys())
@@ -31,6 +32,7 @@ class ConferencesList(Resource):
 
         return {'message': 'Conferences', 'data': conferences}, 200
         
+    # POST - create a new conference
     def post(self):
         parser = reqparse.RequestParser()
 
