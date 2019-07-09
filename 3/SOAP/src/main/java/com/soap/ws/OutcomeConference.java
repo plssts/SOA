@@ -1,5 +1,3 @@
-/*
- */
 package com.soap.ws;
 
 public class OutcomeConference {
